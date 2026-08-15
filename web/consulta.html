@@ -57,46 +57,127 @@
         <p class="section-subtitle fade-in" style="margin: 0 auto;">Esta consulta es confidencial, sin compromiso y sin juicios. Existe para ayudarte a entender tus opciones, no para venderte un servicio.</p>
       </div>
 
-      <form class="glass-card fade-in" id="consultForm" style="padding: var(--space-3xl);" onsubmit="return handleSubmit(event)">
+      <form class="glass-card consult-form fade-in" id="consultForm" data-origen="Página de Consulta" style="padding: var(--space-3xl);">
+        
+        <!-- Bloque 1: Identificación y Contacto -->
         <div class="form-grid">
           <div class="form-group">
-            <label class="form-label" for="nombre">Nombre</label>
-            <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Puedes usar un nombre ficticio" autocomplete="given-name">
-            <p class="form-hint">No es obligatorio usar tu nombre real.</p>
+            <label class="form-label" for="nombre">Nombre o Alias</label>
+            <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Ej. Laura / Anónimo" autocomplete="given-name">
+            <p class="form-hint">No es obligatorio usar tu nombre real si prefieres mantener reserva.</p>
           </div>
           <div class="form-group">
-            <label class="form-label" for="telefono">Teléfono</label>
-            <input class="form-input" type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000" autocomplete="tel">
+            <label class="form-label" for="telefono">Teléfono / WhatsApp <span class="required-dot">*</span></label>
+            <input class="form-input" type="tel" id="telefono" name="telefono" placeholder="+593 96 380 9259" autocomplete="tel">
+            <p class="form-hint">Canal directo para comunicaciones seguras.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="email">Correo Electrónico</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email">
+            <p class="form-hint">Donde recibirás la confirmación de recepción del caso.</p>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="ubicacion">Ciudad / Ubicación del caso</label>
+            <input class="form-input" type="text" id="ubicacion" name="ubicacion" placeholder="Ej. Guayaquil, Quito, Madrid...">
+            <p class="form-hint">Lugar donde se desarrollan los hechos.</p>
+          </div>
+        </div>
+
+        <!-- Bloque 2: Clasificación del Servicio y Urgencia -->
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="tipo">Área de Actuación / Asunto</label>
+            <select class="form-select" id="tipo" name="tipo">
+              <option value="" disabled selected>Selecciona el área de tu consulta</option>
+              <option value="personal">Investigación personal y familiar</option>
+              <option value="custodia">Custodia de menores / Régimen de visitas</option>
+              <option value="patrimonio">Investigación patrimonial y divorcios</option>
+              <option value="empresarial">Investigación empresarial y fraude interno</option>
+              <option value="bajas">Verificación de bajas laborales simuladas</option>
+              <option value="competencia">Competencia desleal / Fuga de información</option>
+              <option value="judicial">Informes periciales con validez judicial</option>
+              <option value="localizacion">Localización de personas o bienes</option>
+              <option value="otro">Otra consulta específica</option>
+              <option value="no-se">No estoy seguro/a (Deseo orientación)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="urgencia">Nivel de Urgencia</label>
+            <select class="form-select" id="urgencia" name="urgencia">
+              <option value="consulta" selected>Informativa (Valoración previa / dudas)</option>
+              <option value="proximos_dias">Media (Para iniciar en los próximos días)</option>
+              <option value="inmediata">Alta (Urgente / Actuación en 24-48h)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Bloque 3: Preferencias de Contacto Seguro -->
+        <div class="form-group">
+          <label class="form-label">¿Por qué medio prefieres que nos comuniquemos contigo?</label>
+          <div class="form-pills-container">
+            <label>
+              <input type="radio" name="preferencia" value="whatsapp" class="form-pill-input" checked>
+              <span class="form-pill-label">WhatsApp (Recomendado)</span>
+            </label>
+            <label>
+              <input type="radio" name="preferencia" value="llamada" class="form-pill-input">
+              <span class="form-pill-label">Llamada telefónica</span>
+            </label>
+            <label>
+              <input type="radio" name="preferencia" value="email" class="form-pill-input">
+              <span class="form-pill-label">Correo electrónico</span>
+            </label>
+            <label>
+              <input type="radio" name="preferencia" value="indiferente" class="form-pill-input">
+              <span class="form-pill-label">Indiferente</span>
+            </label>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="email">Correo electrónico</label>
-          <input class="form-input" type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email">
+          <label class="form-label">Franja horaria más segura para atenderte:</label>
+          <div class="form-pills-container">
+            <label>
+              <input type="radio" name="horario" value="manana" class="form-pill-input">
+              <span class="form-pill-label">Mañana (09:00 a 14:00)</span>
+            </label>
+            <label>
+              <input type="radio" name="horario" value="tarde" class="form-pill-input">
+              <span class="form-pill-label">Tarde (14:00 a 19:00)</span>
+            </label>
+            <label>
+              <input type="radio" name="horario" value="noche" class="form-pill-input">
+              <span class="form-pill-label">Noche (19:00 a 23:00)</span>
+            </label>
+            <label>
+              <input type="radio" name="horario" value="indiferente" class="form-pill-input" checked>
+              <span class="form-pill-label">Cualquier momento</span>
+            </label>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="tipo">¿En qué podemos ayudarte?</label>
-          <select class="form-select" id="tipo" name="tipo">
-            <option value="" disabled selected>Selecciona una opción</option>
-            <option value="personal">Situación personal o familiar</option>
-            <option value="empresarial">Investigación empresarial</option>
-            <option value="judicial">Informes judiciales o periciales</option>
-            <option value="localizacion">Localización de personas o bienes</option>
-            <option value="otro">Otra consulta</option>
-            <option value="no-se">No estoy seguro/a</option>
-          </select>
-        </div>
-
+        <!-- Bloque 4: Detalle de los Hechos -->
         <div class="form-group">
           <label class="form-label" for="mensaje">Cuéntanos brevemente tu situación</label>
-          <textarea class="form-textarea" id="mensaje" name="mensaje" placeholder="Describe tu situación con la profundidad que desees. Todo lo que compartas aquí es estrictamente confidencial."></textarea>
-          <p class="form-hint">No necesitas entrar en detalles si no lo deseas. Podemos profundizar durante la conversación.</p>
+          <textarea class="form-textarea" id="mensaje" name="mensaje" placeholder="Describe los hechos que necesitas verificar o esclarecer. Todo lo aportado está protegido por el secreto profesional y la confidencialidad legal."></textarea>
+          <p class="form-hint">No es necesario aportar datos extremadamente sensibles en este primer contacto; podemos profundizar durante la conversación.</p>
         </div>
 
-        <button type="submit" class="btn btn-primary" id="submit-consultation" style="width: 100%;">Enviar consulta confidencial</button>
+        <!-- Checkbox Privacidad -->
+        <div class="form-checkbox-group">
+          <input type="checkbox" id="privacidad" name="privacidad" class="form-checkbox" required checked>
+          <label for="privacidad" class="form-checkbox-text">
+            He leído y acepto la <a href="privacidad.html" target="_blank">Política de Privacidad</a> y consiento el tratamiento confidencial de los datos facilitados conforme a la normativa de seguridad privada y RGPD.
+          </label>
+        </div>
 
-        <p class="form-privacy">🔒 Toda la información es tratada con absoluta confidencialidad conforme al RGPD. No compartimos tus datos con terceros. La discreción comienza desde este formulario.</p>
+        <!-- Botón de Envío -->
+        <button type="submit" class="btn btn-primary" id="submit-consultation" style="width: 100%; font-size: var(--font-size-base); padding: 16px;">
+          Enviar consulta confidencial
+        </button>
 
         <div class="form-guarantees">
           <div class="form-guarantee">
@@ -165,42 +246,5 @@
   </footer>
 
   <script src="js/main.js"></script>
-  <script>
-    document.getElementById('consultForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submit-consultation');
-      const originalText = btn.textContent;
-      btn.textContent = 'Enviando...';
-      btn.disabled = true;
-
-      const data = {
-        nombre:  document.getElementById('nombre').value  || 'Anónimo',
-        telefono:document.getElementById('telefono').value|| '—',
-        email:   document.getElementById('email').value   || '—',
-        tipo:    document.getElementById('tipo').value    || '—',
-        mensaje: document.getElementById('mensaje').value || '—'
-      };
-
-      try {
-        const res = await fetch('api/send-email.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        const json = await res.json();
-        if (json.success) {
-          btn.textContent = '✓ Consulta enviada — te responderemos pronto';
-          btn.style.background = 'var(--color-serenity)';
-          btn.style.color = '#fff';
-        } else {
-          throw new Error(json.error || 'Error al enviar');
-        }
-      } catch (err) {
-        btn.textContent = originalText;
-        btn.disabled = false;
-        alert('Hubo un problema. Por favor escríbenos directamente a consulta@investiga24.com o por WhatsApp.');
-      }
-    });
-  </script>
 </body>
 </html>

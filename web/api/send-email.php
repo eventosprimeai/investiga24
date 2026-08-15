@@ -51,25 +51,59 @@ if (!$data) {
 }
 
 // Sanitizar inputs
-$nombre   = htmlspecialchars(trim($data['nombre']   ?? 'Anónimo'), ENT_QUOTES, 'UTF-8');
-$telefono = htmlspecialchars(trim($data['telefono'] ?? '—'),       ENT_QUOTES, 'UTF-8');
-$email    = filter_var(trim($data['email'] ?? ''), FILTER_SANITIZE_EMAIL);
-$tipo     = htmlspecialchars(trim($data['tipo']    ?? '—'),         ENT_QUOTES, 'UTF-8');
-$mensaje  = htmlspecialchars(trim($data['mensaje'] ?? '—'),         ENT_QUOTES, 'UTF-8');
+$nombre      = htmlspecialchars(trim($data['nombre']      ?? 'Anónimo'), ENT_QUOTES, 'UTF-8');
+$telefono    = htmlspecialchars(trim($data['telefono']    ?? '—'),       ENT_QUOTES, 'UTF-8');
+$email       = filter_var(trim($data['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+$tipo        = htmlspecialchars(trim($data['tipo']        ?? '—'),       ENT_QUOTES, 'UTF-8');
+$ubicacion   = htmlspecialchars(trim($data['ubicacion']   ?? 'No especificada'), ENT_QUOTES, 'UTF-8');
+$preferencia = htmlspecialchars(trim($data['preferencia'] ?? 'whatsapp'), ENT_QUOTES, 'UTF-8');
+$horario     = htmlspecialchars(trim($data['horario']     ?? 'indiferente'), ENT_QUOTES, 'UTF-8');
+$urgencia    = htmlspecialchars(trim($data['urgencia']    ?? 'consulta'), ENT_QUOTES, 'UTF-8');
+$mensaje     = htmlspecialchars(trim($data['mensaje']     ?? '—'),       ENT_QUOTES, 'UTF-8');
+$origen      = htmlspecialchars(trim($data['origen']      ?? 'Web'),     ENT_QUOTES, 'UTF-8');
 
 $tipos_map = [
-    'personal'    => 'Situación personal o familiar',
-    'empresarial' => 'Investigación empresarial',
-    'judicial'    => 'Informes judiciales o periciales',
-    'localizacion'=> 'Localización de personas o bienes',
-    'otro'        => 'Otra consulta',
-    'no-se'       => 'No sabe aún',
+    'personal'     => 'Investigación personal y familiar',
+    'custodia'     => 'Custodia de menores / Régimen de visitas',
+    'patrimonio'   => 'Investigación patrimonial y divorcios',
+    'empresarial'  => 'Investigación empresarial y fraude',
+    'bajas'        => 'Verificación de bajas laborales',
+    'competencia'  => 'Competencia desleal / Fuga de información',
+    'judicial'     => 'Informes periciales y judiciales',
+    'localizacion' => 'Localización de personas o bienes',
+    'otro'         => 'Otra consulta específica',
+    'no-se'        => 'Asesoramiento / Por determinar',
 ];
-$tipo_label = $tipos_map[$tipo] ?? $tipo;
-$fecha      = date('d/m/Y H:i', time() - 5 * 3600); // UTC-5 (Ecuador)
+$tipo_label = $tipos_map[$tipo] ?? ($tipo ?: 'Consulta General');
+
+$pref_map = [
+    'whatsapp'    => 'WhatsApp (Máxima discreción)',
+    'llamada'     => 'Llamada telefónica',
+    'email'       => 'Correo electrónico',
+    'indiferente' => 'Indiferente / Cualquier vía segura',
+];
+$pref_label = $pref_map[$preferencia] ?? $preferencia;
+
+$horarios_map = [
+    'manana'      => 'Mañana (09:00 a 14:00)',
+    'tarde'       => 'Tarde (14:00 a 19:00)',
+    'noche'       => 'Noche (19:00 a 23:00)',
+    'indiferente' => 'Cualquier franja horaria',
+];
+$horario_label = $horarios_map[$horario] ?? $horario;
+
+$urgencia_map = [
+    'inmediata'     => 'Alta (Urgente 24-48h)',
+    'proximos_dias' => 'Media (En los próximos días)',
+    'consulta'      => 'Informativa (Valoración previa / dudas)',
+];
+$urgencia_label = $urgencia_map[$urgencia] ?? $urgencia;
+
+$fecha       = date('d/m/Y H:i', time() - 5 * 3600); // UTC-5 (Ecuador)
 $clean_phone = preg_replace('/[^0-9+]/', '', $telefono);
 $wa_phone    = preg_replace('/[^0-9]/', '', $telefono);
 $wa_link     = !empty($wa_phone) ? "https://wa.me/{$wa_phone}" : "https://wa.me/593963809259";
+$reply_to    = $email ?: FROM_EMAIL;
 
 // ── Email de Notificación para INVESTIGA24 (Llega a NOTIFY_EMAIL) ───────────
 $html_notif = <<<HTML
@@ -105,7 +139,7 @@ $html_notif = <<<HTML
           <tr>
             <td style="padding:28px 32px 16px 32px;">
               <h1 style="margin:0 0 6px 0;font-size:17px;font-weight:700;color:#ffffff;line-height:1.4;">Solicitud de Consulta Confidencial</h1>
-              <p style="margin:0;font-size:13px;color:#94a3b8;">Registro web generado el $fecha (Hora local)</p>
+              <p style="margin:0;font-size:13px;color:#94a3b8;">Canal: $origen &middot; Fecha: $fecha (Hora local)</p>
             </td>
           </tr>
 
@@ -114,28 +148,44 @@ $html_notif = <<<HTML
             <td style="padding:8px 32px 24px 32px;">
               <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #233047;border-radius:6px;background-color:#0d121f;border-collapse:collapse;">
                 <tr>
-                  <td width="35%" style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Solicitante</td>
-                  <td width="65%" style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;font-weight:600;">$nombre</td>
+                  <td width="38%" style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Solicitante</td>
+                  <td width="62%" style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;font-weight:600;">$nombre</td>
                 </tr>
                 <tr>
-                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Tipo de Servicio</td>
-                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#38bdf8;font-size:14px;font-weight:600;">$tipo_label</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Área de Actuación</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#38bdf8;font-size:14px;font-weight:600;">$tipo_label</td>
                 </tr>
                 <tr>
-                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Teléfono</td>
-                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;">
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Ubicación / Ciudad</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;">$ubicacion</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Urgencia</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;">$urgencia_label</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Teléfono</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;">
                     <a href="tel:$clean_phone" style="color:#60a5fa;text-decoration:none;font-weight:600;">$telefono</a>
                   </td>
                 </tr>
                 <tr>
-                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Email</td>
-                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;">
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Email</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;">
                     <a href="mailto:$email" style="color:#60a5fa;text-decoration:none;">$email</a>
                   </td>
                 </tr>
                 <tr>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Contacto Preferido</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;">$pref_label</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Horario Seguro</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;">$horario_label</td>
+                </tr>
+                <tr>
                   <td colspan="2" style="padding:18px;background-color:#101624;">
-                    <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Mensaje / Descripción del caso:</div>
+                    <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Detalle de la consulta / Hechos:</div>
                     <div style="font-size:14px;line-height:1.7;color:#e2e8f0;white-space:pre-wrap;background-color:#090d16;padding:16px;border-radius:4px;border-left:3px solid #2d7dd2;">$mensaje</div>
                   </td>
                 </tr>
