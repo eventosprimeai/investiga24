@@ -26,22 +26,84 @@
     </div>
   </nav>
 
-  <!-- Header -->
+  <!-- Header Hero Enriquecido -->
   <section class="page-hero">
     <div class="page-hero-bg"></div>
     <div class="container">
-      <span class="section-label fade-in">Sobre nosotros</span>
-      <h1 class="section-title fade-in" style="font-size: clamp(2rem, 4vw, var(--font-size-5xl));">No somos una agencia de detectives más</h1>
-      <p class="section-subtitle fade-in">Somos la agencia que ayuda a las personas a recuperar la capacidad de decidir. Con rigor, empatía y absoluta discreción.</p>
+      
+      <!-- Breadcrumb -->
+      <nav class="hero-breadcrumb fade-in" aria-label="Ruta de navegación">
+        <a href="index.html">Inicio</a>
+        <span class="sep">/</span>
+        <span class="current">Sobre Nosotros</span>
+      </nav>
+
+      <div class="page-hero-grid">
+        <!-- Columna Izquierda: Información Principal -->
+        <div class="fade-in">
+          <span class="section-label">Agencia Oficial de Investigación Privada</span>
+          <h1 class="section-title" style="font-size: clamp(2.1rem, 4vw, 3.2rem); margin-bottom: var(--space-md); line-height: 1.15;">
+            No somos una agencia más. Somos la certeza para decidir.
+          </h1>
+          <p class="section-subtitle" style="font-size: 1.05rem; margin-bottom: 0; line-height: 1.7;">
+            Ayudamos a las personas a recuperar la tranquilidad y el control de su vida mediante información objetiva obtenida con rigor pericial, empatía humana y absoluta discreción.
+          </p>
+
+          <!-- Micro-insignias de Confianza -->
+          <div class="hero-trust-chips">
+            <span class="trust-chip"><strong>Habilitación Oficial TIP</strong> Ministerio</span>
+            <span class="trust-chip"><strong>Validez Judicial</strong> Arts. 265 y 380 LEC</span>
+            <span class="trust-chip"><strong>100% Confidencial</strong> y Seguro</span>
+          </div>
+
+          <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-xl);">
+            <a href="consulta.html" class="btn btn-primary">Consulta Confidencial Gratuita</a>
+            <a href="#manifiesto" class="btn btn-secondary">Conocer Nuestro Manifiesto</a>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Tarjeta Visual de Credenciales -->
+        <div class="fade-in">
+          <div class="page-hero-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md);">
+              <span style="font-size: 11px; font-weight: 700; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Compromiso Deontológico</span>
+              <span style="background: rgba(52, 211, 153, 0.15); color: #34d399; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(52, 211, 153, 0.3);">Habilitación Oficial</span>
+            </div>
+            <h3 style="font-size: 1.15rem; color: #ffffff; margin-bottom: 8px; font-weight: 700;">
+              Cadena de Custodia y Respeto Absoluto a la Ley
+            </h3>
+            <p style="font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: var(--space-lg);">
+              Cada informe elaborado por nuestros detectives privados cuenta con plena validez probatoria y está preparado para su ratificación pericial en sala judicial.
+            </p>
+            <div class="hero-stats-row">
+              <div class="hero-stat-item">
+                <strong>100%</strong>
+                <span>Confidencial</span>
+              </div>
+              <div class="hero-stat-item">
+                <strong>24/7</strong>
+                <span>Atención Discreta</span>
+              </div>
+              <div class="hero-stat-item">
+                <strong>0%</strong>
+                <span>Juicios Morales</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Manifesto -->
-  <section class="section manifesto" style="padding-top: 0;">
-    <div class="container text-center">
-      <span class="section-label fade-in">Nuestro manifiesto</span>
-      <blockquote class="manifesto-text fade-in">
-        En INVESTIGA24 creemos que <strong>la incertidumbre puede llegar a ser tan desgastante como la propia verdad</strong>. Por eso nuestro trabajo no consiste en confirmar sospechas ni en alimentar el conflicto. Consiste en aportar información objetiva para que cada persona pueda tomar decisiones con serenidad. Cada investigación comienza escuchando, continúa con un método riguroso y se desarrolla con absoluta discreción, dentro del marco legal y con la posibilidad de aportar pruebas con validez judicial cuando el caso lo requiera. Nuestro equipo reúne experiencia en investigación y <strong>una profunda vocación de servicio</strong>, porque entendemos que antes de existir un expediente existe una historia personal. No medimos nuestro éxito por el número de investigaciones realizadas, sino por <strong>la confianza que ayudamos a recuperar</strong>.
+  <!-- Manifesto con Espaciado Generoso y Título Propio -->
+  <section class="section manifesto" id="manifiesto" style="padding: var(--space-4xl) 0;">
+    <div class="container text-center" style="max-width: 900px;">
+      <span class="section-label fade-in">Nuestra Razón de Ser</span>
+      <h2 class="section-title fade-in" style="margin-bottom: var(--space-2xl);">Manifiesto de Compromiso Ético y Humano</h2>
+      <blockquote class="manifesto-text fade-in" style="margin: 0 auto; text-align: left; font-size: 1.1rem; line-height: 1.85;">
+        En INVESTIGA24 creemos que <strong>la incertidumbre puede llegar a ser tan desgastante como la propia verdad</strong>. Por eso nuestro trabajo no consiste en confirmar sospechas ni en alimentar el conflicto. Consiste en aportar información objetiva para que cada persona pueda tomar decisiones con serenidad.<br><br>
+        Cada investigación comienza escuchando, continúa con un método riguroso y se desarrolla con absoluta discreción, dentro del marco legal y con la posibilidad de aportar pruebas con validez judicial cuando el caso lo requiera. Nuestro equipo reúne experiencia en investigación y <strong>una profunda vocación de servicio</strong>, porque entendemos que antes de existir un expediente existe una historia personal. No medimos nuestro éxito por el número de investigaciones realizadas, sino por <strong>la confianza que ayudamos a recuperar</strong>.
       </blockquote>
     </div>
   </section>
