@@ -2,14 +2,29 @@
 # INVESTIGA24 — Configuración de Servidor Apache / Hostinger
 # ==============================================================================
 
-# 1. Forzar HTTPS y WWW (o no-WWW)
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # 1. Forzar HTTPS
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 2. Rutas amigables sin extensión .html
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.*)$ $1.html [NC,L]
+
+  # 3. Redirección de /entrega directa
+  RewriteRule ^entrega/?$ entrega.html [NC,L]
+  RewriteRule ^investigaciones/?$ investigaciones.html [NC,L]
+  RewriteRule ^servicios/?$ servicios.html [NC,L]
+  RewriteRule ^como-trabajamos/?$ como-trabajamos.html [NC,L]
+  RewriteRule ^sobre-nosotros/?$ sobre-nosotros.html [NC,L]
+  RewriteRule ^consulta/?$ consulta.html [NC,L]
+  RewriteRule ^buyer-persona-informe/?$ buyer-persona-informe.html [NC,L]
 </IfModule>
 
-# 2. Seguridad y Cabeceras HTTP
+# 3. Seguridad y Cabeceras HTTP
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
   Header set X-XSS-Protection "1; mode=block"
@@ -17,7 +32,7 @@
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
-# 3. Caché de Navegador para Rendimiento Rápido
+# 4. Caché de Navegador para Rendimiento Rápido
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresDefault "access plus 1 month"
@@ -29,11 +44,8 @@
   ExpiresByType application/javascript "access plus 1 month"
 </IfModule>
 
-# 4. Proteger archivos sensibles
+# 5. Proteger archivos sensibles
 <FilesMatch "(\.env|\.git|\.md|config\.php)$">
   Order allow,deny
   Deny from all
 </FilesMatch>
-
-# 5. Páginas de Error personalizadas (opcional)
-ErrorDocument 404 /index.html
