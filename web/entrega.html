@@ -134,15 +134,29 @@
       letter-spacing: 0.5px;
       text-transform: uppercase;
     }
-    .dossier-badge-success {
-      background: rgba(16, 185, 129, 0.15);
-      border-color: rgba(16, 185, 129, 0.3);
-      color: #34d399;
-    }
     .dossier-hero {
-      padding: 70px 0 40px;
+      position: relative;
+      padding: 90px 0 60px;
       text-align: center;
-      background: radial-gradient(circle at 50% 20%, rgba(45, 125, 210, 0.12) 0%, transparent 60%);
+      background-image: 
+        linear-gradient(180deg, rgba(8, 12, 20, 0.88) 0%, rgba(8, 12, 20, 0.96) 80%, rgba(8, 12, 20, 1) 100%),
+        linear-gradient(90deg, rgba(8, 12, 20, 0.95) 0%, rgba(8, 12, 20, 0.7) 50%, rgba(8, 12, 20, 0.95) 100%),
+        url('img/hero-servicios.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      border-bottom: 1px solid rgba(45, 125, 210, 0.25);
+      overflow: hidden;
+    }
+    .dossier-hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: 15%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(45, 125, 210, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
     }
     .dossier-section {
       padding: 60px 0;
