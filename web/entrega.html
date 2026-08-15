@@ -263,6 +263,212 @@
       font-size: 13px;
       margin-bottom: 12px;
     }
+
+    /* --- Interactive Command Center --- */
+    .interactive-command-center {
+      background: #0b0f19;
+      border: 1px solid #1f2a3d;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+      margin: 20px 0 28px;
+    }
+    .command-bar {
+      background: #111726;
+      border-bottom: 1px solid #1f2a3d;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .command-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: #1a2336;
+    }
+    @media (max-width: 860px) {
+      .command-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .command-panel {
+      background: #0d121f;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1a2233;
+    }
+    .panel-badge {
+      background: rgba(45, 125, 210, 0.15);
+      border: 1px solid rgba(45, 125, 210, 0.3);
+      color: #38bdf8;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    /* Funnel styles */
+    .funnel-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .funnel-step {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border: 1px solid;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+    .f-name {
+      color: #f1f5f9;
+      font-weight: 600;
+    }
+    .f-val {
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    /* Simulated Email Box */
+    .simulated-email-box {
+      background: #090d16;
+      border: 1px solid #1c273a;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .sim-email-head {
+      background: #131a29;
+      padding: 10px 14px;
+      border-bottom: 1px solid #1c273a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sim-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .sim-table td {
+      padding: 8px 14px;
+      border-bottom: 1px solid #141c2b;
+    }
+    .st-label {
+      color: #64748b;
+      width: 38%;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+    }
+    .st-val {
+      color: #f1f5f9;
+    }
+    .st-message {
+      background: #0e1422;
+      color: #cbd5e1;
+      line-height: 1.5;
+      font-size: 11px;
+    }
+    .sim-actions {
+      display: flex;
+      padding: 10px 14px;
+      background: #111726;
+      gap: 8px;
+    }
+    .sim-btn {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+    /* Ops Flow Grid */
+    .ops-flow-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .ops-step {
+      background: #111726;
+      border: 1px solid #1c273a;
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .ops-num {
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+    .ops-body strong {
+      display: block;
+      font-size: 12px;
+      color: #f8fafc;
+      margin-bottom: 2px;
+    }
+    .ops-body span {
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.4;
+      display: block;
+    }
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .kpi-card {
+      background: #111726;
+      border: 1px solid #1c273a;
+      border-radius: 6px;
+      padding: 12px;
+      text-align: center;
+    }
+    .kpi-val {
+      display: block;
+      font-size: 18px;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #f1f5f9;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin: 4px 0 2px;
+    }
+    .kpi-desc {
+      font-size: 10px;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.3;
+    }
+
   </style>
 </head>
 <body class="dossier-body">
@@ -463,56 +669,222 @@
        ========================================================================= -->
   <section class="dossier-section" id="captacion">
     <div class="container" style="max-width:1080px;">
-      <div style="margin-bottom:32px;">
-        <span class="dossier-badge">Módulo 2 &middot; Flujo Operativo</span>
-        <h2 style="font-size:26px;font-weight:700;color:#ffffff;margin:8px 0;">El Motor de Captación y Notificación Automática</h2>
-        <p style="color:#94a3b8;font-size:14px;margin:0;">Cómo funciona el enrutamiento inteligente de consultas desde el formulario web hasta tu teléfono.</p>
+      <div style="margin-bottom:28px;">
+        <span class="dossier-badge">Módulo 2 &middot; Flujo Operativo y Automatización</span>
+        <h2 style="font-size:26px;font-weight:700;color:#ffffff;margin:8px 0;">Centro de Gestión Operativa y Recepción de Casos</h2>
+        <p style="color:#94a3b8;font-size:14px;margin:0;">Visualización interactiva del enrutamiento inteligente de consultas, filtrado de viabilidad y entrega en tiempo real.</p>
       </div>
 
-      <img src="img/dossier-workflow.jpg" alt="Flujo de Inteligencia Operativa INVESTIGA24" class="img-showcase">
-
-      <div class="dossier-grid-2" style="margin-top:28px;">
+      <!-- CENTRO DE COMANDO INTERACTIVO (100% EN ESPAÑOL) -->
+      <div class="interactive-command-center">
         
-        <!-- Tarjeta: Lo que recibe el detective -->
-        <div class="dossier-card">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-            <span class="dossier-badge">Para Ti &middot; publicidad553@gmail.com</span>
+        <!-- Barra de Estado del Sistema -->
+        <div class="command-bar">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:10px;height:10px;background:#10b981;border-radius:50%;box-shadow:0 0 10px #10b981;display:inline-block;"></span>
+            <strong style="color:#f8fafc;font-size:13px;letter-spacing:0.5px;">PANEL DE OPERACIONES &middot; INVESTIGA24</strong>
           </div>
-          <h3 style="font-size:17px;font-weight:700;color:#ffffff;margin:0 0 10px;">Memorándum Confidencial Ejecutivo</h3>
-          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
-            Cada vez que alguien envía un formulario en la web, recibes al instante un correo estructurado con formato corporativo sobrio (sin emojis ni distracciones):
-          </p>
-          <ul style="font-size:13px;color:#cbd5e1;line-height:1.8;padding-left:20px;margin:0 0 20px;">
-            <li><strong>Nombre o Alias:</strong> Identificación del solicitante.</li>
-            <li><strong>Área de Actuación:</strong> Categoría exacta del servicio.</li>
-            <li><strong>Ubicación / Ciudad:</strong> Dónde ocurren los hechos.</li>
-            <li><strong>Urgencia:</strong> Nivel de prioridad (*Alta, Media, Consulta*).</li>
-            <li><strong>Teléfono & Email:</strong> Enlaces directos para marcar.</li>
-            <li><strong>Horario Seguro:</strong> Franja horaria para no comprometer al cliente.</li>
-            <li><strong>Detalle del caso:</strong> Resumen de los hechos aportados.</li>
-            <li><strong>Botón 1-Clic a WhatsApp:</strong> Abre el chat con el número listo.</li>
-          </ul>
-          <div class="callout-box">
-            <strong>Ventaja Operativa:</strong> No tienes que copiar números manualmente ni adivinar a qué hora llamar. Tienes toda la ficha técnica en la palma de tu mano.
+          <div style="display:flex;gap:14px;flex-wrap:wrap;">
+            <span style="font-size:12px;color:#94a3b8;">MOTOR API RESEND: <strong style="color:#34d399;">CONECTADO 24/7</strong></span>
+            <span style="font-size:12px;color:#94a3b8;">BUZÓN DE ALERTA: <strong style="color:#38bdf8;">publicidad553@gmail.com</strong></span>
           </div>
         </div>
 
-        <!-- Tarjeta: Lo que recibe el cliente -->
+        <!-- Rejilla de 4 Cuadrantes -->
+        <div class="command-grid">
+          
+          <!-- Cuadrante 1: Embudo de Calificación y Filtrado Legal -->
+          <div class="command-panel">
+            <div class="panel-header">
+              <h4 style="margin:0;font-size:15px;color:#f8fafc;font-weight:700;">1. Embudo de Calificación y Filtrado Legal</h4>
+              <span class="panel-badge">Filtrado 24/7</span>
+            </div>
+            
+            <div class="funnel-container">
+              <div class="funnel-step" style="background:rgba(45, 125, 210, 0.25);border-color:#2d7dd2;">
+                <span class="f-name">Consultas Entrantes (Web / WhatsApp)</span>
+                <span class="f-val">100% Leads</span>
+              </div>
+              <div class="funnel-step" style="background:rgba(45, 125, 210, 0.2);border-color:rgba(45,125,210,0.6);">
+                <span class="f-name">Filtro de Interés Legítimo Acreditado (Ley 5/2014)</span>
+                <span class="f-val">75% Viables</span>
+              </div>
+              <div class="funnel-step" style="background:rgba(212, 168, 83, 0.2);border-color:#d4a853;">
+                <span class="f-name">Calificación Telefónica (Guión 60 Segundos)</span>
+                <span class="f-val">55% Presupuestados</span>
+              </div>
+              <div class="funnel-step" style="background:rgba(16, 185, 129, 0.2);border-color:#10b981;">
+                <span class="f-name">Aceptación por Fases (Estudio + Operativo)</span>
+                <span class="f-val">35% Contratados</span>
+              </div>
+              <div class="funnel-step" style="background:rgba(16, 185, 129, 0.35);border-color:#34d399;font-weight:700;">
+                <span class="f-name">Informe Pericial Judicial & Cierre</span>
+                <span class="f-val">Rentabilidad Máxima</span>
+              </div>
+            </div>
+            <p style="font-size:12px;color:#94a3b8;line-height:1.5;margin:12px 0 0;">
+              El embudo filtra automáticamente a personas sin interés legítimo para proteger tu tiempo y concentrarte en casos de alto valor.
+            </p>
+          </div>
+
+          <!-- Cuadrante 2: Vista Previa en Vivo del Memorándum (Simulador Real) -->
+          <div class="command-panel">
+            <div class="panel-header">
+              <h4 style="margin:0;font-size:15px;color:#f8fafc;font-weight:700;">2. Memorándum Confidencial en tu Móvil</h4>
+              <span class="panel-badge" style="background:rgba(52,211,153,0.15);border-color:rgba(52,211,153,0.3);color:#34d399;">Lo que tú recibes</span>
+            </div>
+            
+            <div class="simulated-email-box">
+              <div class="sim-email-head">
+                <div style="font-size:11px;color:#94a3b8;line-height:1.4;">
+                  De: <strong style="color:#f8fafc;">INVESTIGA24 &lt;consulta@investiga24.com&gt;</strong><br>
+                  Para: <strong style="color:#38bdf8;">publicidad553@gmail.com</strong>
+                </div>
+                <span style="background:#0b0f19;border:1px solid #2d3b55;color:#94a3b8;font-size:10px;font-weight:700;padding:4px 8px;border-radius:4px;text-transform:uppercase;">NUEVA CONSULTA</span>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:#ffffff;padding:10px 14px;border-bottom:1px solid #1c273a;background:#101624;">
+                INVESTIGA24 | Nueva Consulta: Investigación personal - Laura M.
+              </div>
+              
+              <table class="sim-table">
+                <tr>
+                  <td class="st-label">Solicitante:</td>
+                  <td class="st-val">Laura M. (Alias confidencial)</td>
+                </tr>
+                <tr>
+                  <td class="st-label">Área / Asunto:</td>
+                  <td class="st-val" style="color:#38bdf8;font-weight:700;">Investigación personal y familiar</td>
+                </tr>
+                <tr>
+                  <td class="st-label">Ubicación / Ciudad:</td>
+                  <td class="st-val">Guayaquil / Ecuador</td>
+                </tr>
+                <tr>
+                  <td class="st-label">Teléfono:</td>
+                  <td class="st-val"><a href="tel:+593963809259" style="color:#60a5fa;text-decoration:none;font-weight:600;">+593 96 380 9259</a></td>
+                </tr>
+                <tr>
+                  <td class="st-label">Horario Seguro:</td>
+                  <td class="st-val" style="color:#fbbf24;font-weight:600;">Noche (19:00 a 23:00)</td>
+                </tr>
+                <tr>
+                  <td class="st-label">Urgencia:</td>
+                  <td class="st-val">Media (En los próximos días)</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="st-message">
+                    <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:4px;">Detalle del caso aportado:</div>
+                    <em>"Necesito confirmar movimientos patrimoniales no declarados y cambios de conducta en el ámbito familiar antes de iniciar trámites legales. Requiere máxima reserva."</em>
+                  </td>
+                </tr>
+              </table>
+
+              <div class="sim-actions">
+                <a href="https://wa.me/593963809259" target="_blank" class="sim-btn" style="background:#2563eb;color:#fff;">Contactar por WhatsApp &rarr;</a>
+                <a href="mailto:consulta@investiga24.com" class="sim-btn" style="background:#1e293b;border:1px solid #334155;color:#cbd5e1;">Responder por Email</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cuadrante 3: Flujo Operativo Paso a Paso -->
+          <div class="command-panel">
+            <div class="panel-header">
+              <h4 style="margin:0;font-size:15px;color:#f8fafc;font-weight:700;">3. Flujo Operativo de la Investigación</h4>
+              <span class="panel-badge">Cadena de Valor</span>
+            </div>
+            
+            <div class="ops-flow-grid">
+              <div class="ops-step">
+                <div class="ops-num">01</div>
+                <div class="ops-body">
+                  <strong>Entrada Web</strong>
+                  <span>Formulario en investiga24.com o WhatsApp directo.</span>
+                </div>
+              </div>
+              <div class="ops-step">
+                <div class="ops-num">02</div>
+                <div class="ops-body">
+                  <strong>Filtro & Provisión</strong>
+                  <span>Estudio previo de viabilidad y cobro de Fase 1.</span>
+                </div>
+              </div>
+              <div class="ops-step">
+                <div class="ops-num">03</div>
+                <div class="ops-body">
+                  <strong>Operativo Enfocado</strong>
+                  <span>Vigilancia en ventanas de alta probabilidad (Fase 2).</span>
+                </div>
+              </div>
+              <div class="ops-step">
+                <div class="ops-num">04</div>
+                <div class="ops-body">
+                  <strong>Informe & Ratificación</strong>
+                  <span>Pruebas con cadena de custodia y validez judicial.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cuadrante 4: Métricas Clave para el Detective -->
+          <div class="command-panel">
+            <div class="panel-header">
+              <h4 style="margin:0;font-size:15px;color:#f8fafc;font-weight:700;">4. Parámetros de Eficiencia del Despacho</h4>
+              <span class="panel-badge">KPIs Operativos</span>
+            </div>
+            
+            <div class="kpi-grid">
+              <div class="kpi-card">
+                <span class="kpi-val">&lt; 24h</span>
+                <span class="kpi-label">Tiempo de Respuesta</span>
+                <p class="kpi-desc">Desactiva la búsqueda de otras agencias.</p>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-val">100%</span>
+                <span class="kpi-label">Blindaje RGPD</span>
+                <p class="kpi-desc">Exención de preaviso Art. 14.5.b RGPD.</p>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-val">1-Clic</span>
+                <span class="kpi-label">Atención Inmediata</span>
+                <p class="kpi-desc">Enlace directo a WhatsApp desde el correo.</p>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-val">Ley 5/14</span>
+                <span class="kpi-label">Validez Judicial</span>
+                <p class="kpi-desc">Informes ratificables ante tribunales.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Resumen de Flujo Dual (Cliente vs Detective) -->
+      <div class="dossier-grid-2" style="margin-top:28px;">
+        
         <div class="dossier-card">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <span class="dossier-badge">Para Ti &middot; publicidad553@gmail.com</span>
+          </div>
+          <h3 style="font-size:16px;font-weight:700;color:#ffffff;margin:0 0 8px;">Ventaja Operativa Inmediata</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 12px;">
+            No tienes que copiar números a mano ni adivinar a qué hora llamar. Tienes toda la ficha técnica en tu móvil para decidir la estrategia antes de descolgar.
+          </p>
+          <div class="callout-box" style="margin:0;">
+            <strong>Control Total:</strong> Si estás en la calle en pleno operativo, ves la notificación en silencio y respondes cuando sea seguro.
+          </div>
+        </div>
+
+        <div class="dossier-card">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
             <span class="dossier-badge dossier-badge-success">Para el Cliente &middot; Desde consulta@investiga24.com</span>
           </div>
-          <h3 style="font-size:17px;font-weight:700;color:#ffffff;margin:0 0 10px;">Acuse de Recibo Tranquilizador</h3>
-          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
-            El consultante recibe un email institucional instantáneo diseñado para desactivar la ansiedad y confirmar que está en manos de profesionales:
+          <h3 style="font-size:16px;font-weight:700;color:#ffffff;margin:0 0 8px;">Impacto Psicológico Tranquilizador</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 12px;">
+            El consultante recibe un acuse institucional en segundos confirmando que su caso ya está siendo analizado y amparado por el secreto profesional.
           </p>
-          <div class="copy-box" style="margin-bottom:16px;">
-            <strong style="color:#ffffff;">Asunto:</strong> INVESTIGA24 | Hemos recibido tu consulta confidencial<br><br>
-            <em>"Confirmamos la correcta recepción de tu mensaje. Un detective asignado a nuestro equipo analizará la información aportada y se pondrá en contacto contigo en un plazo máximo de 24 horas.<br><br>
-            Te recordamos que toda comunicación y datos compartidos están rigurosamente amparados por el deber de secreto profesional y la más estricta confidencialidad."</em>
-          </div>
-          <div class="callout-box callout-gold">
-            <strong>Impacto Psicológico:</strong> El cliente siente alivio inmediato, evita buscar otras agencias en Google y sabe que será atendido con discreción.
+          <div class="callout-box callout-gold" style="margin:0;">
+            <strong>Fidelización Automática:</strong> El cliente siente alivio, frena su ansiedad y deja de buscar otros detectives en Google.
           </div>
         </div>
 
