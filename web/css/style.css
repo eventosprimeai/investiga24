@@ -425,6 +425,47 @@ button {
   max-width: 720px;
 }
 
+/* --- Subpage Header Hero (Full-Width Cinematic Dark Background) --- */
+.page-hero {
+  position: relative;
+  padding-top: calc(var(--nav-height) + var(--space-4xl));
+  padding-bottom: var(--space-3xl);
+  overflow: hidden;
+  background-color: #0d0918;
+  border-bottom: 1px solid rgba(212, 168, 83, 0.18);
+}
+
+.page-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: 
+    linear-gradient(180deg, rgba(13, 9, 24, 0.82) 0%, rgba(13, 9, 24, 0.92) 65%, rgba(13, 9, 24, 1) 100%),
+    linear-gradient(90deg, rgba(13, 9, 24, 0.95) 0%, rgba(13, 9, 24, 0.68) 50%, rgba(13, 9, 24, 0.95) 100%),
+    url('../img/hero-bg.png');
+  background-size: cover;
+  background-position: center 30%;
+  pointer-events: none;
+}
+
+.page-hero-bg::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(212, 168, 83, 0.1) 0%, rgba(45, 125, 210, 0.04) 40%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: heroGlow 8s ease-in-out infinite alternate;
+}
+
+.page-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
 /* --- Image Placeholders --- */
 .img-placeholder {
   width: 100%;
