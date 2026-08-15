@@ -1378,4 +1378,20 @@ button {
   flex-shrink: 0;
 }
 
+/* --- Infographic & Showcase Visuals --- */
+.img-showcase {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg, 12px);
+  border: 1px solid rgba(212, 168, 83, 0.25);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 168, 83, 0.08);
+  margin: var(--space-2xl) auto;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
 
+.img-showcase:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 42px -8px rgba(0, 0, 0, 0.7), 0 0 28px rgba(212, 168, 83, 0.16);
+}
