@@ -1,0 +1,109 @@
+investiga24-os/
+│
+├── README.md
+├── LICENSE.md
+├── CHANGELOG.md
+├── ROADMAP.md
+│
+├── 00-foundation/
+│   ├── vision.md
+│   ├── manifesto.md
+│   ├── principles.md
+│   ├── positioning.md
+│   ├── mission.md
+│   ├── values.md
+│   ├── personality.md
+│   ├── glossary.md
+│   └── decision-framework.md
+│
+├── 01-brand/
+│   ├── tone-of-voice.md
+│   ├── messaging.md
+│   ├── vocabulary.md
+│   ├── prohibited-language.md
+│   ├── storytelling.md
+│   ├── tagline.md
+│   ├── trust-signals.md
+│   └── visual-principles.md
+│
+├── 02-client-intelligence/
+│   ├── personas/
+│   │   ├── laura-martin/
+│   │   ├── rrhh-director/
+│   │   ├── abogado/
+│   │   ├── compliance/
+│   │   └── aseguradoras/
+│   │
+│   ├── customer-journeys/
+│   ├── jobs-to-be-done/
+│   ├── voice-of-customer/
+│   ├── behavioral-economics/
+│   └── objections/
+│
+├── 03-content-system/
+│   ├── topical-map.md
+│   ├── topical-authority.md
+│   ├── semantic-seo.md
+│   ├── ai-search.md
+│   ├── faq-engine.md
+│   ├── content-clusters/
+│   ├── editorial-calendar/
+│   └── templates/
+│
+├── 04-sales-system/
+│   ├── consultation-framework.md
+│   ├── qualification.md
+│   ├── objections.md
+│   ├── pricing.md
+│   ├── follow-up.md
+│   ├── client-experience.md
+│   └── service-blueprints/
+│
+├── 05-copy-system/
+│   ├── home.md
+│   ├── services.md
+│   ├── about.md
+│   ├── landing-pages.md
+│   ├── ads.md
+│   ├── emails.md
+│   ├── whatsapp.md
+│   ├── social.md
+│   └── prompts/
+│
+├── 06-ai/
+│   ├── rag/
+│   ├── embeddings/
+│   ├── prompts/
+│   ├── assistant-rules.md
+│   ├── chatbot.md
+│   └── knowledge-index.md
+│
+├── 07-ux/
+│   ├── emotional-journeys.md
+│   ├── ux-principles.md
+│   ├── wireframes/
+│   ├── trust-architecture.md
+│   └── conversion-framework.md
+│
+├── 08-competition/
+│   ├── pinkerton.md
+│   ├── acme.md
+│   ├── investicat.md
+│   ├── wns.md
+│   ├── detectib.md
+│   └── market-map.md
+│
+├── 09-playbooks/
+│   ├── marketing.md
+│   ├── sales.md
+│   ├── customer-service.md
+│   ├── management.md
+│   └── onboarding.md
+│
+└── database/
+    ├── personas.csv
+    ├── keywords.csv
+    ├── objections.csv
+    ├── faq.csv
+    ├── competitors.csv
+    └── content.csv

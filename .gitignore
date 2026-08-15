@@ -1,0 +1,22 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment and sensitive keys
+.env
+.env.*
+*token*
+*credential*
+repositorio_investiga24.txt
+Conocimientos/repositorio_investiga24.txt
+web/api/config.php
+
+# Editor directories
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

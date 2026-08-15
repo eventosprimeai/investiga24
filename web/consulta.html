@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta Confidencial — INVESTIGA24</title>
+  <meta name="description" content="Solicita una consulta confidencial con un detective privado habilitado. Sin compromiso, sin juicios y con total discreción desde el primer momento.">
+  <link rel="canonical" href="https://investiga24.com/consulta.html">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+  <style>
+    .form-group { margin-bottom: var(--space-xl); }
+    .form-label { display: block; font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text-primary); margin-bottom: var(--space-sm); }
+    .form-hint { font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 4px; }
+    .form-input, .form-textarea, .form-select {
+      width: 100%; padding: 14px 18px; font-family: var(--font-family); font-size: var(--font-size-base);
+      background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+      color: var(--color-text-primary); transition: all var(--transition-base); outline: none;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--color-accent); box-shadow: 0 0 0 3px var(--color-accent-glow);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--color-text-muted); }
+    .form-textarea { min-height: 140px; resize: vertical; }
+    .form-select { appearance: none; cursor: pointer; }
+    .form-select option { background: var(--color-bg-elevated); color: var(--color-text-primary); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+    @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-privacy { font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: var(--space-lg); line-height: 1.6; }
+    .form-guarantees { display: flex; gap: var(--space-xl); margin-top: var(--space-2xl); flex-wrap: wrap; }
+    .form-guarantee { display: flex; align-items: center; gap: var(--space-sm); font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+    .form-guarantee svg { width: 18px; height: 18px; color: var(--color-serenity); flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><img src="img/logo-investiga24.png" alt="INVESTIGA24"></a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="servicios.html" class="nav-link">Servicios</a>
+        <a href="como-trabajamos.html" class="nav-link">Cómo Trabajamos</a>
+        <a href="sobre-nosotros.html" class="nav-link">Sobre Nosotros</a>
+        <a href="conocimiento.html" class="nav-link">Conocimiento</a>
+        <a href="consulta.html" class="btn btn-primary nav-cta">Consulta Confidencial</a>
+      </div>
+      <button class="nav-mobile-toggle" id="navToggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <section class="section" style="padding-top: calc(var(--nav-height) + var(--space-4xl));">
+    <div class="container" style="max-width: 720px;">
+      <div class="text-center" style="margin-bottom: var(--space-3xl);">
+        <span class="section-label fade-in">Consulta confidencial</span>
+        <h1 class="section-title fade-in">Cuéntanos tu situación</h1>
+        <p class="section-subtitle fade-in" style="margin: 0 auto;">Esta consulta es confidencial, sin compromiso y sin juicios. Existe para ayudarte a entender tus opciones, no para venderte un servicio.</p>
+      </div>
+
+      <form class="glass-card fade-in" id="consultForm" style="padding: var(--space-3xl);" onsubmit="return handleSubmit(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="nombre">Nombre</label>
+            <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Puedes usar un nombre ficticio" autocomplete="given-name">
+            <p class="form-hint">No es obligatorio usar tu nombre real.</p>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="telefono">Teléfono</label>
+            <input class="form-input" type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000" autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Correo electrónico</label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="tipo">¿En qué podemos ayudarte?</label>
+          <select class="form-select" id="tipo" name="tipo">
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="personal">Situación personal o familiar</option>
+            <option value="empresarial">Investigación empresarial</option>
+            <option value="judicial">Informes judiciales o periciales</option>
+            <option value="localizacion">Localización de personas o bienes</option>
+            <option value="otro">Otra consulta</option>
+            <option value="no-se">No estoy seguro/a</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="mensaje">Cuéntanos brevemente tu situación</label>
+          <textarea class="form-textarea" id="mensaje" name="mensaje" placeholder="Describe tu situación con la profundidad que desees. Todo lo que compartas aquí es estrictamente confidencial."></textarea>
+          <p class="form-hint">No necesitas entrar en detalles si no lo deseas. Podemos profundizar durante la conversación.</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submit-consultation" style="width: 100%;">Enviar consulta confidencial</button>
+
+        <p class="form-privacy">🔒 Toda la información es tratada con absoluta confidencialidad conforme al RGPD. No compartimos tus datos con terceros. La discreción comienza desde este formulario.</p>
+
+        <div class="form-guarantees">
+          <div class="form-guarantee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            Sin compromiso
+          </div>
+          <div class="form-guarantee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            100% confidencial
+          </div>
+          <div class="form-guarantee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3"/></svg>
+            Respuesta en 24h
+          </div>
+        </div>
+      </form>
+
+      <!-- Alternative contact -->
+      <div class="text-center fade-in" style="margin-top: var(--space-3xl);">
+        <p style="font-size: var(--font-size-base); color: var(--color-text-secondary); margin-bottom: var(--space-lg);">¿Prefieres hablar directamente?</p>
+        <div style="display: flex; justify-content: center; gap: var(--space-md); flex-wrap: wrap;">
+          <a href="tel:+593963809259" class="btn btn-secondary">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Llamar ahora (+593 96 380 9259)
+          </a>
+          <a href="https://wa.me/593963809259" class="btn btn-secondary" target="_blank" rel="noopener">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.11.553 4.09 1.518 5.81L0 24l6.34-1.49A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82a9.8 9.8 0 01-5.24-1.51l-.37-.22-3.77.89.95-3.64-.25-.39A9.79 9.79 0 012.18 12 9.82 9.82 0 0112 2.18 9.82 9.82 0 0121.82 12 9.82 9.82 0 0112 21.82z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo"><img src="img/logo-investiga24.png" alt="INVESTIGA24"></a>
+          <p>Ayudamos a las personas a recuperar la tranquilidad mediante información objetiva obtenida con rigor profesional, absoluta discreción y validez judicial.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Servicios</h4>
+          <a href="servicios.html#personal">Investigación personal</a>
+          <a href="servicios.html#empresarial">Investigación empresarial</a>
+          <a href="servicios.html#judicial">Informes judiciales</a>
+          <a href="servicios.html#localizacion">Localización</a>
+        </div>
+        <div class="footer-col">
+          <h4>Información</h4>
+          <a href="como-trabajamos.html">Cómo trabajamos</a>
+          <a href="sobre-nosotros.html">Sobre nosotros</a>
+          <a href="conocimiento.html">Centro de conocimiento</a>
+          <a href="index.html#faq">Preguntas frecuentes</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <a href="tel:+593963809259">+593 96 380 9259</a>
+          <a href="mailto:consulta@investiga24.com">consulta@investiga24.com</a>
+          <a href="https://wa.me/593963809259" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="consulta.html">Consulta confidencial</a>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2024 INVESTIGA24. Todos los derechos reservados.</p><div class="footer-legal"><a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Política de privacidad</a><a href="cookies.html">Política de cookies</a></div></div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById('consultForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-consultation');
+      const originalText = btn.textContent;
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+
+      const data = {
+        nombre:  document.getElementById('nombre').value  || 'Anónimo',
+        telefono:document.getElementById('telefono').value|| '—',
+        email:   document.getElementById('email').value   || '—',
+        tipo:    document.getElementById('tipo').value    || '—',
+        mensaje: document.getElementById('mensaje').value || '—'
+      };
+
+      try {
+        const res = await fetch('api/send-email.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (json.success) {
+          btn.textContent = '✓ Consulta enviada — te responderemos pronto';
+          btn.style.background = 'var(--color-serenity)';
+          btn.style.color = '#fff';
+        } else {
+          throw new Error(json.error || 'Error al enviar');
+        }
+      } catch (err) {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        alert('Hubo un problema. Por favor escríbenos directamente a consulta@investiga24.com o por WhatsApp.');
+      }
+    });
+  </script>
+</body>
+</html>
