@@ -462,25 +462,37 @@ button {
 
 /* --- Route-Specific Hero Backgrounds (Photographic & Zero Text) --- */
 .hero-bg-servicios {
-  background-image: linear-gradient(to right, rgba(12, 8, 22, 0.93) 15%, rgba(12, 8, 22, 0.55) 70%, rgba(12, 8, 22, 0.85) 100%), url('../img/hero-servicios.jpg') !important;
+  background-image: 
+    linear-gradient(to right, rgba(8, 12, 22, 0.82) 0%, rgba(8, 12, 22, 0.35) 55%, rgba(8, 12, 22, 0.7) 100%),
+    linear-gradient(to bottom, rgba(8, 12, 22, 0.3) 0%, rgba(8, 12, 22, 0.9) 100%),
+    url('../img/hero-servicios.jpg') !important;
   background-size: cover !important;
-  background-position: center 35% !important;
+  background-position: center 30% !important;
 }
 
 .hero-bg-como-trabajamos {
-  background-image: linear-gradient(to right, rgba(12, 8, 22, 0.93) 15%, rgba(12, 8, 22, 0.55) 70%, rgba(12, 8, 22, 0.85) 100%), url('../img/hero-como-trabajamos.jpg') !important;
+  background-image: 
+    linear-gradient(to right, rgba(8, 12, 22, 0.82) 0%, rgba(8, 12, 22, 0.35) 55%, rgba(8, 12, 22, 0.7) 100%),
+    linear-gradient(to bottom, rgba(8, 12, 22, 0.3) 0%, rgba(8, 12, 22, 0.9) 100%),
+    url('../img/hero-como-trabajamos.jpg') !important;
   background-size: cover !important;
   background-position: center 40% !important;
 }
 
 .hero-bg-investigaciones {
-  background-image: linear-gradient(to right, rgba(12, 8, 22, 0.94) 20%, rgba(12, 8, 22, 0.55) 75%, rgba(12, 8, 22, 0.9) 100%), url('../img/hero-como-trabajamos.jpg') !important;
+  background-image: 
+    linear-gradient(to right, rgba(8, 12, 22, 0.82) 0%, rgba(8, 12, 22, 0.35) 55%, rgba(8, 12, 22, 0.7) 100%),
+    linear-gradient(to bottom, rgba(8, 12, 22, 0.3) 0%, rgba(8, 12, 22, 0.9) 100%),
+    url('../img/hero-como-trabajamos.jpg') !important;
   background-size: cover !important;
-  background-position: center 50% !important;
+  background-position: center 45% !important;
 }
 
 .hero-bg-sobre-nosotros {
-  background-image: linear-gradient(to right, rgba(12, 8, 22, 0.93) 15%, rgba(12, 8, 22, 0.5) 70%, rgba(12, 8, 22, 0.85) 100%), url('../img/hero-bg.png') !important;
+  background-image: 
+    linear-gradient(to right, rgba(8, 12, 22, 0.82) 0%, rgba(8, 12, 22, 0.35) 55%, rgba(8, 12, 22, 0.7) 100%),
+    linear-gradient(to bottom, rgba(8, 12, 22, 0.3) 0%, rgba(8, 12, 22, 0.9) 100%),
+    url('../img/hero-bg.png') !important;
   background-size: cover !important;
   background-position: center 25% !important;
 }

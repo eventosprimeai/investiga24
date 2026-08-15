@@ -1,27 +1,30 @@
 # ==============================================================================
-# INVESTIGA24 — Configuración de Servidor Apache / Hostinger
+# INVESTIGA24 — Configuración de Servidor Apache / LiteSpeed (Hostinger)
 # ==============================================================================
+
+DirectoryIndex index.html index.php
+Options -Indexes +FollowSymLinks
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteBase /
 
   # 1. Forzar HTTPS
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # 2. Rutas amigables sin extensión .html
+  # 2. Rutas amigables (ej: /servicios -> /servicios.html)
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME}\.html -f
-  RewriteRule ^(.*)$ $1.html [NC,L]
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^([^/]+)/?$ $1.html [L,QSA]
 
-  # 3. Redirección de /entrega directa
-  RewriteRule ^entrega/?$ entrega.html [NC,L]
-  RewriteRule ^investigaciones/?$ investigaciones.html [NC,L]
-  RewriteRule ^servicios/?$ servicios.html [NC,L]
-  RewriteRule ^como-trabajamos/?$ como-trabajamos.html [NC,L]
-  RewriteRule ^sobre-nosotros/?$ sobre-nosotros.html [NC,L]
-  RewriteRule ^consulta/?$ consulta.html [NC,L]
-  RewriteRule ^buyer-persona-informe/?$ buyer-persona-informe.html [NC,L]
+  # 3. Fallbacks directos para páginas clave
+  RewriteRule ^entrega/?$ entrega.html [L,QSA]
+  RewriteRule ^servicios/?$ servicios.html [L,QSA]
+  RewriteRule ^como-trabajamos/?$ como-trabajamos.html [L,QSA]
+  RewriteRule ^sobre-nosotros/?$ sobre-nosotros.html [L,QSA]
+  RewriteRule ^investigaciones/?$ investigaciones.html [L,QSA]
+  RewriteRule ^consulta/?$ consulta.html [L,QSA]
 </IfModule>
 
 # 3. Seguridad y Cabeceras HTTP
