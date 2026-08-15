@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INVESTIGA24 — Dossier Estratégico y Manual de Operaciones</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Estilos específicos del Dossier Privado */
+    :root {
+      --dossier-gold: #d4a853;
+      --dossier-blue: #2d7dd2;
+      --dossier-bg: #07090e;
+    }
+    body.dossier-body {
+      background-color: var(--dossier-bg);
+      color: #e2e8f0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Lockscreen Gatekeeper */
+    #gatekeeper {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: radial-gradient(circle at center, #131926 0%, #06080d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #gatekeeper.unlocked {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .gatekeeper-card {
+      max-width: 440px;
+      width: 100%;
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(45, 125, 210, 0.25);
+      border-radius: 16px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(45, 125, 210, 0.1);
+      backdrop-filter: blur(20px);
+    }
+    .gatekeeper-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 20px;
+      background: rgba(45, 125, 210, 0.15);
+      border: 1px solid rgba(45, 125, 210, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dossier-blue);
+    }
+    .gatekeeper-input {
+      width: 100%;
+      padding: 14px 18px;
+      background: #0b0f19;
+      border: 1px solid #233047;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 16px;
+      text-align: center;
+      letter-spacing: 2px;
+      margin: 20px 0 14px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    .gatekeeper-input:focus {
+      border-color: var(--dossier-blue);
+      box-shadow: 0 0 0 3px rgba(45, 125, 210, 0.2);
+    }
+    .gatekeeper-error {
+      color: #f43f5e;
+      font-size: 13px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* Dossier Layout & Nav */
+    .dossier-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(11, 15, 25, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid #1f2a3d;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .dossier-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      overflow-x: auto;
+    }
+    .dossier-links a {
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .dossier-links a:hover {
+      color: #38bdf8;
+    }
+    .dossier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(45, 125, 210, 0.15);
+      border: 1px solid rgba(45, 125, 210, 0.3);
+      color: #38bdf8;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .dossier-badge-success {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+    .dossier-hero {
+      padding: 70px 0 40px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 20%, rgba(45, 125, 210, 0.12) 0%, transparent 60%);
+    }
+    .dossier-section {
+      padding: 60px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .dossier-card {
+      background: #111726;
+      border: 1px solid #1f2a3d;
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+      transition: border-color 0.3s ease;
+    }
+    .dossier-card:hover {
+      border-color: #2d4166;
+    }
+    .dossier-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .dossier-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 860px) {
+      .dossier-grid-2, .dossier-grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .dossier-links {
+        display: none;
+      }
+    }
+    .copy-box {
+      background: #090d16;
+      border: 1px solid #1c273a;
+      border-radius: 8px;
+      padding: 16px;
+      position: relative;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 5px 10px;
+      font-size: 11px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover {
+      background: #2563eb;
+      border-color: #2563eb;
+    }
+    .preview-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .preview-table th {
+      background: #161f33;
+      padding: 10px 14px;
+      text-align: left;
+      color: #94a3b8;
+      border-bottom: 1px solid #233047;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .preview-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #1a2233;
+      color: #e2e8f0;
+    }
+    .callout-box {
+      background: rgba(45, 125, 210, 0.08);
+      border-left: 4px solid #2d7dd2;
+      padding: 18px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .callout-gold {
+      background: rgba(212, 168, 83, 0.08);
+      border-left: 4px solid var(--dossier-gold);
+    }
+    .img-showcase {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #243048;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      margin: 16px 0;
+    }
+    .phrase-bad {
+      background: rgba(244, 63, 94, 0.08);
+      border: 1px solid rgba(244, 63, 94, 0.2);
+      border-radius: 8px;
+      padding: 14px;
+      color: #fda4af;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    .phrase-good {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 8px;
+      padding: 14px;
+      color: #6ee7b7;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body class="dossier-body">
+
+  <!-- =========================================================================
+       PANTALLA DE ACCESO PRIVADO (GATEKEEPER - CLAVE: Prime2026)
+       ========================================================================= -->
+  <div id="gatekeeper">
+    <div class="gatekeeper-card">
+      <div class="gatekeeper-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      </div>
+      <span style="font-size:20px;font-weight:800;letter-spacing:1px;color:#ffffff;">INVESTIGA<span style="color:#2d7dd2;">24</span></span>
+      <h2 style="font-size:18px;font-weight:700;margin:12px 0 6px;color:#f8fafc;">Dossier Privado de Entrega</h2>
+      <p style="font-size:13px;color:#94a3b8;margin:0;">Introduce tu clave de acceso autorizada para consultar el manual estratégico y operativo.</p>
+      
+      <form id="unlockForm" onsubmit="handleUnlock(event)">
+        <input type="password" id="passInput" class="gatekeeper-input" placeholder="Introduce la clave" autocomplete="current-password" autofocus>
+        <button type="submit" class="btn btn-primary" style="width:100%;padding:14px;font-size:14px;font-weight:600;">Desbloquear Dossier</button>
+        <div id="passError" class="gatekeeper-error">Clave incorrecta. Por favor, solicita acceso a Eventos Prime.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       BARRA DE NAVEGACIÓN SUPERIOR DEL DOSSIER
+       ========================================================================= -->
+  <nav class="dossier-nav">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <a href="index.html" style="text-decoration:none;font-size:18px;font-weight:800;color:#ffffff;">INVESTIGA<span style="color:#2d7dd2;">24</span></a>
+      <span class="dossier-badge dossier-badge-success">Publicado &middot; Producción</span>
+    </div>
+    
+    <ul class="dossier-links">
+      <li><a href="#plataforma">Ecosistema Web</a></li>
+      <li><a href="#captacion">Motor de Consultas</a></li>
+      <li><a href="#psicologia">Buyer Persona</a></li>
+      <li><a href="#atencion">Guión de Atención</a></li>
+      <li><a href="#pricing">Pricing & Fases</a></li>
+      <li><a href="#marketing">Playbook B2B</a></li>
+      <li><a href="#operativa">Operativa Diaria</a></li>
+    </ul>
+
+    <div style="display:flex;gap:10px;">
+      <a href="index.html" target="_blank" class="btn btn-secondary" style="padding:8px 14px;font-size:12px;">Ver Web Pública &rarr;</a>
+      <button onclick="window.print()" class="btn btn-secondary" style="padding:8px 12px;font-size:12px;" title="Guardar como PDF">PDF</button>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       HERO DEL DOSSIER
+       ========================================================================= -->
+  <header class="dossier-hero">
+    <div class="container" style="max-width:900px;">
+      <span class="dossier-badge" style="margin-bottom:16px;">Documento de Entrega Oficial &middot; Agosto 2026</span>
+      <h1 style="font-size:36px;font-weight:800;color:#ffffff;line-height:1.25;margin:0 0 16px;">
+        Plataforma Digital & Manual Estratégico de Operaciones
+      </h1>
+      <p style="font-size:16px;color:#94a3b8;line-height:1.7;margin:0 auto 28px;max-width:760px;">
+        Tu plataforma web ya está <strong>100% activa en producción</strong> en <a href="https://investiga24.com" target="_blank" style="color:#38bdf8;text-decoration:none;">investiga24.com</a>. Este dossier constituye tu manual maestro para convertir visitas en investigaciones de alto valor, blindar tus procesos y dominar la captación como detective independiente.
+      </p>
+
+      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+        <div style="background:#111726;border:1px solid #1f2a3d;padding:12px 20px;border-radius:8px;text-align:left;">
+          <span style="font-size:11px;color:#64748b;text-transform:uppercase;font-weight:700;display:block;">Buzón Alertas de Casos</span>
+          <strong style="color:#38bdf8;font-size:13px;">publicidad553@gmail.com</strong>
+        </div>
+        <div style="background:#111726;border:1px solid #1f2a3d;padding:12px 20px;border-radius:8px;text-align:left;">
+          <span style="font-size:11px;color:#64748b;text-transform:uppercase;font-weight:700;display:block;">Línea Directa / WhatsApp</span>
+          <strong style="color:#34d399;font-size:13px;">+593 96 380 9259</strong>
+        </div>
+        <div style="background:#111726;border:1px solid #1f2a3d;padding:12px 20px;border-radius:8px;text-align:left;">
+          <span style="font-size:11px;color:#64748b;text-transform:uppercase;font-weight:700;display:block;">Remitente Oficial</span>
+          <strong style="color:#f8fafc;font-size:13px;">consulta@investiga24.com</strong>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       SECCIÓN 1: EL ECOSISTEMA DIGITAL PUBLICADO
+       ========================================================================= -->
+  <section class="dossier-section" id="plataforma">
+    <div class="container" style="max-width:1080px;">
+      <div style="margin-bottom:32px;">
+        <span class="dossier-badge">Módulo 1 &middot; Tu Activo Digital</span>
+        <h2 style="font-size:26px;font-weight:700;color:#ffffff;margin:8px 0;">Las 9 Páginas Desarrolladas y Publicadas</h2>
+        <p style="color:#94a3b8;font-size:14px;margin:0;">Una presencia digital corporativa sin fisuras, orientada a generar máxima autoridad legal y conversión.</p>
+      </div>
+
+      <div class="dossier-grid-3">
+        
+        <div class="dossier-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <strong style="color:#f8fafc;font-size:16px;">1. Portada Principal</strong>
+            <span class="dossier-badge">index.html</span>
+          </div>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
+            Hero de alto impacto, propuesta de valor sin sensacionalismos, presentación de servicios, manifiesto ético, testimonios de tranquilidad y formulario de captación directa.
+          </p>
+          <a href="index.html" target="_blank" style="color:#38bdf8;font-size:12px;text-decoration:none;font-weight:600;">Ver página en vivo &rarr;</a>
+        </div>
+
+        <div class="dossier-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <strong style="color:#f8fafc;font-size:16px;">2. Servicios Especializados</strong>
+            <span class="dossier-badge">servicios.html</span>
+          </div>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
+            Desglose exhaustivo: Personal/Familiar, Empresarial, Informes Judiciales y Localizaciones. Cada botón preselecciona el servicio automáticamente al pasar al formulario.
+          </p>
+          <a href="servicios.html" target="_blank" style="color:#38bdf8;font-size:12px;text-decoration:none;font-weight:600;">Ver página en vivo &rarr;</a>
+        </div>
+
+        <div class="dossier-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <strong style="color:#f8fafc;font-size:16px;">3. Cómo Trabajamos</strong>
+            <span class="dossier-badge">como-trabajamos.html</span>
+          </div>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
+            Explicación transparente de las 5 fases: Consulta inicial, Estudio de viabilidad, Operativo de campo, Redacción del informe y Ratificación judicial.
+          </p>
+          <a href="como-trabajamos.html" target="_blank" style="color:#38bdf8;font-size:12px;text-decoration:none;font-weight:600;">Ver página en vivo &rarr;</a>
+        </div>
+
+        <div class="dossier-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <strong style="color:#f8fafc;font-size:16px;">4. Sobre Nosotros</strong>
+            <span class="dossier-badge">sobre-nosotros.html</span>
+          </div>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
+            Autoridad deontológica, habilitación oficial, secreto profesional y compromiso con la verdad probatoria por encima de opiniones subjetivas.
+          </p>
+          <a href="sobre-nosotros.html" target="_blank" style="color:#38bdf8;font-size:12px;text-decoration:none;font-weight:600;">Ver página en vivo &rarr;</a>
+        </div>
+
+        <div class="dossier-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <strong style="color:#f8fafc;font-size:16px;">5. Centro de Conocimiento</strong>
+            <span class="dossier-badge">conocimiento.html</span>
+          </div>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
+            Artículos de divulgación jurídica para educar al cliente y generar autoridad en Google sobre validez probatoria, custodia y legalidad de detectives.
+          </p>
+          <a href="conocimiento.html" target="_blank" style="color:#38bdf8;font-size:12px;text-decoration:none;font-weight:600;">Ver página en vivo &rarr;</a>
+        </div>
+
+        <div class="dossier-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <strong style="color:#f8fafc;font-size:16px;">6. Consulta Confidencial</strong>
+            <span class="dossier-badge">consulta.html</span>
+          </div>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
+            Portal de toma de datos completo con selectores de franja horaria segura, canal de contacto preferido, nivel de urgencia y descripción de hechos.
+          </p>
+          <a href="consulta.html" target="_blank" style="color:#38bdf8;font-size:12px;text-decoration:none;font-weight:600;">Ver página en vivo &rarr;</a>
+        </div>
+
+        <div class="dossier-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <strong style="color:#f8fafc;font-size:16px;">7. Aviso Legal</strong>
+            <span class="dossier-badge">aviso-legal.html</span>
+          </div>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
+            Blindaje regulatorio bajo la Ley 5/2014 de Seguridad Privada, exigencia de interés legítimo y límites legales de investigación.
+          </p>
+          <a href="aviso-legal.html" target="_blank" style="color:#38bdf8;font-size:12px;text-decoration:none;font-weight:600;">Ver página en vivo &rarr;</a>
+        </div>
+
+        <div class="dossier-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <strong style="color:#f8fafc;font-size:16px;">8. Privacidad RGPD</strong>
+            <span class="dossier-badge">privacidad.html</span>
+          </div>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
+            Exención legal de notificación previa a investigados (Art. 14.5.b RGPD), custodia del Libro-Registro Oficial y derechos de clientes.
+          </p>
+          <a href="privacidad.html" target="_blank" style="color:#38bdf8;font-size:12px;text-decoration:none;font-weight:600;">Ver página en vivo &rarr;</a>
+        </div>
+
+        <div class="dossier-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <strong style="color:#f8fafc;font-size:16px;">9. Política de Cookies</strong>
+            <span class="dossier-badge">cookies.html</span>
+          </div>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
+            Declaración técnica estricta: navegación limpia sin cookies de seguimiento invasivas de terceros.
+          </p>
+          <a href="cookies.html" target="_blank" style="color:#38bdf8;font-size:12px;text-decoration:none;font-weight:600;">Ver página en vivo &rarr;</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 2: EL MOTOR DE CONSULTAS Y RECEPCIÓN (RESEND API)
+       ========================================================================= -->
+  <section class="dossier-section" id="captacion">
+    <div class="container" style="max-width:1080px;">
+      <div style="margin-bottom:32px;">
+        <span class="dossier-badge">Módulo 2 &middot; Flujo Operativo</span>
+        <h2 style="font-size:26px;font-weight:700;color:#ffffff;margin:8px 0;">El Motor de Captación y Notificación Automática</h2>
+        <p style="color:#94a3b8;font-size:14px;margin:0;">Cómo funciona el enrutamiento inteligente de consultas desde el formulario web hasta tu teléfono.</p>
+      </div>
+
+      <img src="img/dossier-workflow.jpg" alt="Flujo de Inteligencia Operativa INVESTIGA24" class="img-showcase">
+
+      <div class="dossier-grid-2" style="margin-top:28px;">
+        
+        <!-- Tarjeta: Lo que recibe el detective -->
+        <div class="dossier-card">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="dossier-badge">Para Ti &middot; publicidad553@gmail.com</span>
+          </div>
+          <h3 style="font-size:17px;font-weight:700;color:#ffffff;margin:0 0 10px;">Memorándum Confidencial Ejecutivo</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
+            Cada vez que alguien envía un formulario en la web, recibes al instante un correo estructurado con formato corporativo sobrio (sin emojis ni distracciones):
+          </p>
+          <ul style="font-size:13px;color:#cbd5e1;line-height:1.8;padding-left:20px;margin:0 0 20px;">
+            <li><strong>Nombre o Alias:</strong> Identificación del solicitante.</li>
+            <li><strong>Área de Actuación:</strong> Categoría exacta del servicio.</li>
+            <li><strong>Ubicación / Ciudad:</strong> Dónde ocurren los hechos.</li>
+            <li><strong>Urgencia:</strong> Nivel de prioridad (*Alta, Media, Consulta*).</li>
+            <li><strong>Teléfono & Email:</strong> Enlaces directos para marcar.</li>
+            <li><strong>Horario Seguro:</strong> Franja horaria para no comprometer al cliente.</li>
+            <li><strong>Detalle del caso:</strong> Resumen de los hechos aportados.</li>
+            <li><strong>Botón 1-Clic a WhatsApp:</strong> Abre el chat con el número listo.</li>
+          </ul>
+          <div class="callout-box">
+            <strong>Ventaja Operativa:</strong> No tienes que copiar números manualmente ni adivinar a qué hora llamar. Tienes toda la ficha técnica en la palma de tu mano.
+          </div>
+        </div>
+
+        <!-- Tarjeta: Lo que recibe el cliente -->
+        <div class="dossier-card">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span class="dossier-badge dossier-badge-success">Para el Cliente &middot; Desde consulta@investiga24.com</span>
+          </div>
+          <h3 style="font-size:17px;font-weight:700;color:#ffffff;margin:0 0 10px;">Acuse de Recibo Tranquilizador</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 16px;">
+            El consultante recibe un email institucional instantáneo diseñado para desactivar la ansiedad y confirmar que está en manos de profesionales:
+          </p>
+          <div class="copy-box" style="margin-bottom:16px;">
+            <strong style="color:#ffffff;">Asunto:</strong> INVESTIGA24 | Hemos recibido tu consulta confidencial<br><br>
+            <em>"Confirmamos la correcta recepción de tu mensaje. Un detective asignado a nuestro equipo analizará la información aportada y se pondrá en contacto contigo en un plazo máximo de 24 horas.<br><br>
+            Te recordamos que toda comunicación y datos compartidos están rigurosamente amparados por el deber de secreto profesional y la más estricta confidencialidad."</em>
+          </div>
+          <div class="callout-box callout-gold">
+            <strong>Impacto Psicológico:</strong> El cliente siente alivio inmediato, evita buscar otras agencias en Google y sabe que será atendido con discreción.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 3: RADIOGRAFÍA PSICOLÓGICA DEL CLIENTE (BUYER PERSONA)
+       ========================================================================= -->
+  <section class="dossier-section" id="psicologia">
+    <div class="container" style="max-width:1080px;">
+      <div style="margin-bottom:32px;">
+        <span class="dossier-badge">Módulo 3 &middot; Psicología del Comprador</span>
+        <h2 style="font-size:26px;font-weight:700;color:#ffffff;margin:8px 0;">La Mente de tu Cliente: "Laura Martín" a las 23:47</h2>
+        <p style="color:#94a3b8;font-size:14px;margin:0;">Entender por qué te contrata es el secreto para cerrar casos sin discutir precios.</p>
+      </div>
+
+      <img src="img/dossier-persona.jpg" alt="Ciclo Psicológico de Laura Martín - INVESTIGA24" class="img-showcase">
+
+      <div class="dossier-grid-3" style="margin-top:28px;">
+        
+        <div class="dossier-card">
+          <h3 style="font-size:16px;font-weight:700;color:#f8fafc;margin:0 0 10px;">1. No Compra "Venganza"</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.7;margin:0;">
+            El mayor error es tratar al cliente como alguien que quiere "pillar" a su pareja. Cuando Laura te contacta a las 23:47, lleva meses sin descansar. <strong>No busca venganza; busca dejar de vivir con la duda</strong> para recuperar el control de su vida.
+          </p>
+        </div>
+
+        <div class="dossier-card">
+          <h3 style="font-size:16px;font-weight:700;color:#f8fafc;margin:0 0 10px;">2. Las 3 Emociones Ocultas</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.7;margin:0;">
+            Siente <strong>Vergüenza</strong> (de necesitar un detective), <strong>Culpa</strong> (teme haber fallado ella en la relación) y <strong>Esperanza de equivocarse</strong> (desearía que le confirmes que no pasa nada). Si la tratas con empatía y sin juzgar, se sentirá protegida.
+          </p>
+        </div>
+
+        <div class="dossier-card">
+          <h3 style="font-size:16px;font-weight:700;color:#f8fafc;margin:0 0 10px;">3. El Cliente Empresa (B2B)</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.7;margin:0;">
+            El gerente o abogado laboralista no tiene carga emocional. Busca <strong>pruebas periciales irrefutables</strong> con cadena de custodia para evitar pagar indemnizaciones millonarias por despidos o desmantelar redes de competencia desleal.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 4: PROTOCOLO DE ATENCIÓN TELEFÓNICA & WHATSAPP
+       ========================================================================= -->
+  <section class="dossier-section" id="atencion">
+    <div class="container" style="max-width:1080px;">
+      <div style="margin-bottom:32px;">
+        <span class="dossier-badge">Módulo 4 &middot; Protocolo de Conversión</span>
+        <h2 style="font-size:26px;font-weight:700;color:#ffffff;margin:8px 0;">Guión Paso a Paso para la Primera Conversación</h2>
+        <p style="color:#94a3b8;font-size:14px;margin:0;">Cómo conducir la llamada telefónica o el chat de WhatsApp para transmitir autoridad y cerrar el servicio.</p>
+      </div>
+
+      <div class="dossier-grid-2">
+        
+        <!-- Guión de los primeros 60 segundos -->
+        <div class="dossier-card">
+          <h3 style="font-size:17px;font-weight:700;color:#ffffff;margin:0 0 12px;">Los Primeros 60 Segundos de la Llamada</h3>
+          <div class="copy-box" style="margin-bottom:16px;">
+            <button class="copy-btn" onclick="copyText(this)">Copiar Guión</button>
+            <span style="color:#38bdf8;font-weight:700;">Apertura:</span><br>
+            "Buenos días / tardes, INVESTIGA24. Mi nombre es [Tu Nombre], detective privado habilitado. La consulta es estrictamente confidencial y sin compromiso. Cuénteme con tranquilidad, ¿en qué situación se encuentra?"
+          </div>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0;">
+            <strong>Regla de oro:</strong> Deja hablar al cliente durante 2-3 minutos sin interrumpir. Cuando termine de exponer su caso, valida con calma: <em>"Entiendo perfectamente por lo que está pasando. Vamos a analizar las opciones con serenidad y rigor profesional."</em>
+          </p>
+        </div>
+
+        <!-- Las 4 Preguntas de Oro -->
+        <div class="dossier-card">
+          <h3 style="font-size:17px;font-weight:700;color:#ffffff;margin:0 0 12px;">Las 4 Preguntas Clave de Calificación</h3>
+          <ul style="font-size:13px;color:#cbd5e1;line-height:1.7;padding-left:18px;margin:0;">
+            <li><strong>1. Interés Legítimo:</strong> "¿Qué relación familiar, legal o contractual le une a la persona que desea investigar?"</li>
+            <li><strong>2. Ventana de Probabilidad:</strong> "¿Hay días específicos, horarios o patrones repetitivos donde ocurren las sospechas?"</li>
+            <li><strong>3. Nivel de Alerta:</strong> "¿La otra persona sospecha algo o ha habido discusiones recientes?"</li>
+            <li><strong>4. Finalidad del Informe:</strong> "¿Necesita las pruebas para su tranquilidad íntima o para aportarlas en sede judicial (custodia, divorcio, despido)?"</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Comparativa de Frases -->
+      <div class="dossier-card" style="margin-top:20px;">
+        <h3 style="font-size:17px;font-weight:700;color:#ffffff;margin:0 0 16px;">Comparativa: Qué Decir vs. Qué Jamás Pronunciar</h3>
+        
+        <div class="dossier-grid-2">
+          <div>
+            <div class="phrase-bad">
+              <strong>❌ Frase Prohibida:</strong> "Uff, eso que me cuenta suena a que le están engañando seguro."<br>
+              <em>Por qué daña:</em> Aumenta la paranoia y resta seriedad forense.
+            </div>
+            <div class="phrase-bad">
+              <strong>❌ Frase Prohibida:</strong> "Le cobro a tanto la hora y a ver qué sale en el seguimiento."<br>
+              <em>Por qué daña:</em> Te posiciona como un servicio caro e impredecible.
+            </div>
+            <div class="phrase-bad">
+              <strong>❌ Frase Prohibida:</strong> "Instálele un programa espía en el móvil y listo."<br>
+              <em>Por qué daña:</em> Es un delito penal que anula cualquier validez judicial.
+            </div>
+          </div>
+
+          <div>
+            <div class="phrase-good">
+              <strong>✅ Frase de Poder:</strong> "En nuestra experiencia, lo prudente es no precipitarse y dejar que los hechos objetivos hablen por sí solos."
+            </div>
+            <div class="phrase-good">
+              <strong>✅ Frase de Poder:</strong> "Diseñamos un operativo enfocado exclusivamente en las franjas horarias de máxima probabilidad para optimizar su inversión."
+            </div>
+            <div class="phrase-good">
+              <strong>✅ Frase de Poder:</strong> "Toda la prueba se obtiene dentro del marco legal, con plena validez judicial ante jueces y tribunales."
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 5: ESTRATEGIA COMERCIAL & PRICING
+       ========================================================================= -->
+  <section class="dossier-section" id="pricing">
+    <div class="container" style="max-width:1080px;">
+      <div style="margin-bottom:32px;">
+        <span class="dossier-badge">Módulo 5 &middot; Estrategia Comercial</span>
+        <h2 style="font-size:26px;font-weight:700;color:#ffffff;margin:8px 0;">Política de Precios por Valor (No por Horas Sueltas)</h2>
+        <p style="color:#94a3b8;font-size:14px;margin:0;">Cómo cobrar lo que vale tu servicio y superar la objeción del precio.</p>
+      </div>
+
+      <div class="dossier-grid-3">
+        
+        <div class="dossier-card">
+          <span class="dossier-badge" style="margin-bottom:8px;">Fase 1</span>
+          <h3 style="font-size:16px;font-weight:700;color:#ffffff;margin:0 0 8px;">Estudio Previo y Viabilidad</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 12px;">
+            Análisis de rutinas, reconocimiento de zonas, matrículas y trazado de rutas. Cobro de provisión fija inicial.
+          </p>
+          <strong style="color:#38bdf8;font-size:13px;">Garantiza tu tiempo de preparación.</strong>
+        </div>
+
+        <div class="dossier-card">
+          <span class="dossier-badge" style="margin-bottom:8px;">Fase 2</span>
+          <h3 style="font-size:16px;font-weight:700;color:#ffffff;margin:0 0 8px;">Operativo de Campo Enfocado</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 12px;">
+            Bloques cerrados de vigilancia (jornadas de 4 a 6 horas) en los momentos de mayor sospecha. Evita desgastes innecesarios.
+          </p>
+          <strong style="color:#34d399;font-size:13px;">Máxima probabilidad de éxito.</strong>
+        </div>
+
+        <div class="dossier-card">
+          <span class="dossier-badge" style="margin-bottom:8px;">Fase 3</span>
+          <h3 style="font-size:16px;font-weight:700;color:#ffffff;margin:0 0 8px;">Informe Pericial y Ratificación</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0 0 12px;">
+            Redacción cronológica del informe con soporte gráfico/vídeo, cadena de custodia y disposición para ratificar ante el tribunal.
+          </p>
+          <strong style="color:#f8fafc;font-size:13px;">El documento que da tranquilidad.</strong>
+        </div>
+
+      </div>
+
+      <!-- Manejo de la objeción del precio -->
+      <div class="dossier-card" style="margin-top:20px;">
+        <h3 style="font-size:17px;font-weight:700;color:#ffffff;margin:0 0 12px;">Cómo Responder a: "Es que me parece caro"</h3>
+        <div class="copy-box">
+          <button class="copy-btn" onclick="copyText(this)">Copiar Respuesta</button>
+          <em>"Comprendo su punto de vista. Sin embargo, en situaciones como esta, un informe técnico pericial bien fundamentado es la herramienta que le permite defender la custodia de sus hijos, evitar una pensión compensatoria desproporcionada o justificar un despido procedente sin contingencias. No está contratando horas de vigilancia; está adquiriendo la seguridad jurídica para tomar las decisiones más importantes de su vida."</em>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 6: PLAYBOOK DE MARKETING B2B & ALIANZAS
+       ========================================================================= -->
+  <section class="dossier-section" id="marketing">
+    <div class="container" style="max-width:1080px;">
+      <div style="margin-bottom:32px;">
+        <span class="dossier-badge">Módulo 6 &middot; Crecimiento B2B</span>
+        <h2 style="font-size:26px;font-weight:700;color:#ffffff;margin:8px 0;">Alianzas con Abogados: Tu Canal Más Rentable</h2>
+        <p style="color:#94a3b8;font-size:14px;margin:0;">Los letrados de familia, mercantil y laboral son tu fuente continua de casos pre-cualificados.</p>
+      </div>
+
+      <div class="dossier-card">
+        <h3 style="font-size:17px;font-weight:700;color:#ffffff;margin:0 0 12px;">Mensaje de Presentación a Bufetes de Abogados (Listo para Enviar)</h3>
+        <div class="copy-box">
+          <button class="copy-btn" onclick="copyText(this)">Copiar Propuesta</button>
+          <strong>Asunto:</strong> Colaboración Pericial en Investigación Privada y Obtención de Pruebas — INVESTIGA24<br><br>
+          Estimado/a Letrado/a,<br><br>
+          Le escribo desde <strong>INVESTIGA24</strong>, despacho especializado en investigación privada y obtención de pruebas documentales con estricta cadena de custodia.<br><br>
+          Colaboramos habitualmente con despachos jurídicos en procedimientos de:
+          <ul style="margin:8px 0;padding-left:20px;">
+            <li>Derecho de Familia: Custodia de menores, régimen de visitas y pensiones compensatorias/alimenticias.</li>
+            <li>Derecho Laboral: Bajas fingidas, competencia desleal y transgresión de la buena fe contractual.</li>
+            <li>Derecho Mercantil y Civil: Localización de patrimonio oculto y solvencia de deudores.</li>
+          </ul>
+          Aportamos informes periciales con pleno valor probatorio y ratificación presencial en sala judicial.<br><br>
+          Quedo a su entera disposición si en algún momento su despacho requiere contrastar la viabilidad de un caso. Puede consultar nuestra plataforma en <a href="https://investiga24.com" target="_blank" style="color:#38bdf8;">investiga24.com</a> o contactarme directamente al <strong>+593 96 380 9259</strong>.<br><br>
+          Atentamente,<br>
+          <strong>Dirección de Operaciones &middot; INVESTIGA24</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 7: GESTIÓN OPERATIVA EN SOLITARIO
+       ========================================================================= -->
+  <section class="dossier-section" id="operativa">
+    <div class="container" style="max-width:1080px;">
+      <div style="margin-bottom:32px;">
+        <span class="dossier-badge">Módulo 7 &middot; Operativa Diaria</span>
+        <h2 style="font-size:26px;font-weight:700;color:#ffffff;margin:8px 0;">Rutina Operativa de un Detective en Solitario</h2>
+        <p style="color:#94a3b8;font-size:14px;margin:0;">Cómo compaginar la calle y la gestión comercial sin perder ningún cliente.</p>
+      </div>
+
+      <div class="dossier-grid-3">
+        
+        <div class="dossier-card">
+          <h3 style="font-size:16px;font-weight:700;color:#ffffff;margin:0 0 8px;">1. Calle vs. Oficina</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0;">
+            Cuando estés en operativo de campo, tu web sigue trabajando por ti. El cliente que escribe recibe el acuse automático al instante, y tú recibes la alerta en tu móvil para responder por WhatsApp en el primer descanso seguro.
+          </p>
+        </div>
+
+        <div class="dossier-card">
+          <h3 style="font-size:16px;font-weight:700;color:#ffffff;margin:0 0 8px;">2. Cadena de Custodia</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0;">
+            Nunca edites ni recortes las fotos originales. Guarda los archivos con sus metadatos EXIF intactos en carpetas protegidas con fecha y hora. En sala judicial, la prueba virgen es indestructible.
+          </p>
+        </div>
+
+        <div class="dossier-card">
+          <h3 style="font-size:16px;font-weight:700;color:#ffffff;margin:0 0 8px;">3. Libro-Registro Oficial</h3>
+          <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin:0;">
+            Asigna un número de expediente a cada consulta contratada. Archiva el contrato de encargo con la acreditación del interés legítimo para cumplir con la normativa de seguridad privada.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       FOOTER DEL DOSSIER
+       ========================================================================= -->
+  <footer style="padding:40px 0;text-align:center;border-top:1px solid #1f2a3d;background:#090d16;">
+    <div class="container">
+      <span style="font-size:20px;font-weight:800;color:#ffffff;">INVESTIGA<span style="color:#2d7dd2;">24</span></span>
+      <p style="font-size:13px;color:#64748b;margin:8px 0 16px;">Plataforma Web en Producción &middot; Desarrollada por Eventos Prime</p>
+      <div style="display:flex;justify-content:center;gap:16px;">
+        <a href="index.html" class="btn btn-secondary" style="font-size:12px;">Ir a la Web Pública</a>
+        <button onclick="lockAgain()" class="btn btn-secondary" style="font-size:12px;">Cerrar Sesión Privada</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       SCRIPT DE SEGURIDAD & INTERACCIÓN (CLAVE: Prime2026)
+       ========================================================================= -->
+  <script>
+    const MASTER_KEY = 'Prime2026';
+    const gatekeeper = document.getElementById('gatekeeper');
+    const passInput = document.getElementById('passInput');
+    const passError = document.getElementById('passError');
+
+    // Comprobar si ya está autenticado en la sesión
+    if (sessionStorage.getItem('i24_dossier_auth') === 'true') {
+      gatekeeper.classList.add('unlocked');
+    }
+
+    function handleUnlock(e) {
+      e.preventDefault();
+      const entered = passInput.value.trim();
+      if (entered === MASTER_KEY) {
+        sessionStorage.setItem('i24_dossier_auth', 'true');
+        gatekeeper.classList.add('unlocked');
+        passError.style.display = 'none';
+      } else {
+        passError.style.display = 'block';
+        passInput.style.borderColor = '#f43f5e';
+        passInput.value = '';
+        passInput.focus();
+      }
+    }
+
+    function lockAgain() {
+      sessionStorage.removeItem('i24_dossier_auth');
+      gatekeeper.classList.remove('unlocked');
+      passInput.value = '';
+    }
+
+    function copyText(btn) {
+      const box = btn.parentElement;
+      const text = box.innerText.replace('Copiar Guión', '').replace('Copiar Respuesta', '').replace('Copiar Propuesta', '').trim();
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = '✓ Copiado';
+        btn.style.background = '#10b981';
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.style.background = '#1e293b';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
