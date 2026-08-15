@@ -67,72 +67,180 @@ $tipos_map = [
 ];
 $tipo_label = $tipos_map[$tipo] ?? $tipo;
 $fecha      = date('d/m/Y H:i', time() - 5 * 3600); // UTC-5 (Ecuador)
-$reply_to   = $email ?: FROM_EMAIL;
+$clean_phone = preg_replace('/[^0-9+]/', '', $telefono);
+$wa_phone    = preg_replace('/[^0-9]/', '', $telefono);
+$wa_link     = !empty($wa_phone) ? "https://wa.me/{$wa_phone}" : "https://wa.me/593963809259";
 
-// ── Email para el equipo INVESTIGA24 ─────────────────────────────────────────
+// ── Email de Notificación para INVESTIGA24 (Llega a NOTIFY_EMAIL) ───────────
 $html_notif = <<<HTML
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><title>Nueva consulta</title></head>
-<body style="font-family:'Helvetica Neue',Arial,sans-serif;background:#0a0e1a;color:#f9fafb;padding:32px;">
-  <div style="max-width:600px;margin:0 auto;background:#111827;border-radius:16px;padding:40px;border:1px solid rgba(255,255,255,0.08);">
-    <div style="text-align:center;margin-bottom:32px;">
-      <span style="font-size:24px;font-weight:800;color:#f9fafb;">INVESTIGA<span style="color:#d4a853;">24</span></span>
-      <p style="color:#d4a853;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin:8px 0 0;">Nueva consulta confidencial</p>
-    </div>
-    <table width="100%" cellpadding="0" cellspacing="0">
-      <tr><td style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-        <span style="color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Nombre</span><br>
-        <strong style="color:#f9fafb;font-size:16px;">$nombre</strong>
-      </td></tr>
-      <tr><td style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-        <span style="color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Tipo de consulta</span><br>
-        <strong style="color:#d4a853;font-size:16px;">$tipo_label</strong>
-      </td></tr>
-      <tr><td style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-        <span style="color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Teléfono</span><br>
-        <a href="tel:$telefono" style="color:#3b82f6;font-size:16px;text-decoration:none;">$telefono</a>
-      </td></tr>
-      <tr><td style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-        <span style="color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Email</span><br>
-        <a href="mailto:$email" style="color:#3b82f6;font-size:16px;text-decoration:none;">$email</a>
-      </td></tr>
-      <tr><td style="padding:16px 0 0;">
-        <span style="color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Mensaje</span><br>
-        <p style="color:#f9fafb;font-size:15px;line-height:1.7;margin:8px 0 0;background:rgba(255,255,255,0.04);padding:16px;border-radius:8px;border-left:3px solid #d4a853;">$mensaje</p>
-      </td></tr>
-    </table>
-    <div style="margin-top:32px;padding:16px;background:rgba(212,168,83,0.08);border-radius:8px;text-align:center;">
-      <p style="color:#9ca3af;font-size:12px;margin:0;">Recibida el $fecha &nbsp;·&nbsp; Responder en menos de 24h</p>
-    </div>
-  </div>
-</body></html>
+<head>
+  <meta charset="UTF-8">
+  <title>INVESTIGA24 - Notificación de Consulta</title>
+</head>
+<body style="margin:0;padding:0;background-color:#0b0f19;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#e2e8f0;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0b0f19;padding:36px 16px;">
+    <tr>
+      <td align="center">
+        <table width="100%" cellpadding="0" cellspacing="0" style="max-width:620px;background-color:#111726;border:1px solid #1f2a3d;border-radius:10px;overflow:hidden;">
+          
+          <!-- Header -->
+          <tr>
+            <td style="padding:24px 32px;border-bottom:1px solid #1f2a3d;background-color:#161f33;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <span style="font-size:20px;font-weight:800;letter-spacing:0.5px;color:#f8fafc;">INVESTIGA<span style="color:#2d7dd2;">24</span></span>
+                  </td>
+                  <td align="right">
+                    <span style="font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;background-color:#0b0f19;border:1px solid #2d3b55;padding:6px 12px;border-radius:4px;">NUEVA CONSULTA</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Título y Fecha -->
+          <tr>
+            <td style="padding:28px 32px 16px 32px;">
+              <h1 style="margin:0 0 6px 0;font-size:17px;font-weight:700;color:#ffffff;line-height:1.4;">Solicitud de Consulta Confidencial</h1>
+              <p style="margin:0;font-size:13px;color:#94a3b8;">Registro web generado el $fecha (Hora local)</p>
+            </td>
+          </tr>
+
+          <!-- Tabla de Datos -->
+          <tr>
+            <td style="padding:8px 32px 24px 32px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #233047;border-radius:6px;background-color:#0d121f;border-collapse:collapse;">
+                <tr>
+                  <td width="35%" style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Solicitante</td>
+                  <td width="65%" style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;font-weight:600;">$nombre</td>
+                </tr>
+                <tr>
+                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Tipo de Servicio</td>
+                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#38bdf8;font-size:14px;font-weight:600;">$tipo_label</td>
+                </tr>
+                <tr>
+                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Teléfono</td>
+                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;">
+                    <a href="tel:$clean_phone" style="color:#60a5fa;text-decoration:none;font-weight:600;">$telefono</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Email</td>
+                  <td style="padding:14px 18px;border-bottom:1px solid #1c273a;color:#f8fafc;font-size:14px;">
+                    <a href="mailto:$email" style="color:#60a5fa;text-decoration:none;">$email</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="padding:18px;background-color:#101624;">
+                    <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Mensaje / Descripción del caso:</div>
+                    <div style="font-size:14px;line-height:1.7;color:#e2e8f0;white-space:pre-wrap;background-color:#090d16;padding:16px;border-radius:4px;border-left:3px solid #2d7dd2;">$mensaje</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Botones de Acción Directa -->
+          <tr>
+            <td style="padding:0 32px 28px 32px;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="50%" style="padding-right:6px;">
+                    <a href="$wa_link" target="_blank" style="display:block;background-color:#2563eb;color:#ffffff;text-decoration:none;font-size:13px;font-weight:600;padding:12px;border-radius:6px;text-align:center;">Contactar por WhatsApp</a>
+                  </td>
+                  <td width="50%" style="padding-left:6px;">
+                    <a href="mailto:$email" style="display:block;background-color:#1e293b;color:#cbd5e1;border:1px solid #334155;text-decoration:none;font-size:13px;font-weight:600;padding:12px;border-radius:6px;text-align:center;">Responder por Email</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer Confidencialidad -->
+          <tr>
+            <td style="padding:18px 32px;border-top:1px solid #1f2a3d;background-color:#0d111c;text-align:center;">
+              <p style="margin:0;font-size:11px;color:#64748b;line-height:1.5;">
+                INVESTIGA24 &middot; Sistema de Gestión de Consultas &middot; Información estrictamente confidencial
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
 HTML;
 
-// ── Email de confirmación para el usuario ────────────────────────────────────
+// ── Email de Confirmación para el Cliente ────────────────────────────────────
 $html_confirm = <<<HTML
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><title>Hemos recibido tu consulta</title></head>
-<body style="font-family:'Helvetica Neue',Arial,sans-serif;background:#0a0e1a;color:#f9fafb;padding:32px;">
-  <div style="max-width:600px;margin:0 auto;background:#111827;border-radius:16px;padding:40px;border:1px solid rgba(255,255,255,0.08);">
-    <div style="text-align:center;margin-bottom:40px;">
-      <span style="font-size:28px;font-weight:800;color:#f9fafb;">INVESTIGA<span style="color:#d4a853;">24</span></span>
-    </div>
-    <h1 style="color:#f9fafb;font-size:22px;font-weight:600;margin:0 0 16px;">Hemos recibido tu consulta</h1>
-    <p style="color:#9ca3af;line-height:1.8;font-size:15px;">Hola $nombre,</p>
-    <p style="color:#9ca3af;line-height:1.8;font-size:15px;">Gracias por contactarnos. Hemos recibido tu consulta y te responderemos en menos de 24 horas.</p>
-    <p style="color:#9ca3af;line-height:1.8;font-size:15px;">Recuerda que todo lo que nos has compartido está protegido por nuestro deber de confidencialidad profesional.</p>
-    <div style="margin:32px 0;padding:24px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:3px solid #d4a853;">
-      <p style="color:#d4a853;font-size:13px;text-transform:uppercase;letter-spacing:2px;margin:0 0 8px;">Mientras tanto</p>
-      <p style="color:#f9fafb;font-size:15px;margin:0;line-height:1.7;">Si tu situación requiere atención más urgente, puedes llamarnos al <a href="tel:+593963809259" style="color:#d4a853;text-decoration:none;">+593 96 380 9259</a> o escribirnos por <a href="https://wa.me/593963809259" style="color:#d4a853;text-decoration:none;">WhatsApp</a>.</p>
-    </div>
-    <p style="color:#6b7280;font-size:13px;line-height:1.7;">La discreción comienza desde el primer momento. Nuestro trabajo termina cuando vuelves a sentir que puedes decidir con tranquilidad.</p>
-    <p style="color:#6b7280;font-size:13px;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);">
-      &copy; INVESTIGA24 &nbsp;·&nbsp; <a href="https://investiga24.com" style="color:#d4a853;text-decoration:none;">investiga24.com</a>
-    </p>
-  </div>
-</body></html>
+<head>
+  <meta charset="UTF-8">
+  <title>Hemos recibido tu consulta - INVESTIGA24</title>
+</head>
+<body style="margin:0;padding:0;background-color:#0b0f19;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#e2e8f0;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0b0f19;padding:36px 16px;">
+    <tr>
+      <td align="center">
+        <table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;background-color:#111726;border:1px solid #1f2a3d;border-radius:10px;overflow:hidden;">
+          
+          <!-- Header -->
+          <tr>
+            <td style="padding:24px 32px;border-bottom:1px solid #1f2a3d;background-color:#161f33;">
+              <span style="font-size:20px;font-weight:800;letter-spacing:0.5px;color:#f8fafc;">INVESTIGA<span style="color:#2d7dd2;">24</span></span>
+            </td>
+          </tr>
+
+          <!-- Cuerpo del mensaje -->
+          <tr>
+            <td style="padding:32px 32px 16px 32px;">
+              <h1 style="margin:0 0 16px 0;font-size:18px;font-weight:700;color:#ffffff;line-height:1.4;">Hemos recibido tu consulta</h1>
+              <p style="margin:0 0 14px 0;font-size:14px;line-height:1.8;color:#cbd5e1;">Estimado/a $nombre,</p>
+              <p style="margin:0 0 14px 0;font-size:14px;line-height:1.8;color:#94a3b8;">
+                Confirmamos la correcta recepción de tu mensaje. Un detective asignado a nuestro equipo analizará la información aportada y se pondrá en contacto contigo en un plazo máximo de 24 horas.
+              </p>
+              <p style="margin:0 0 20px 0;font-size:14px;line-height:1.8;color:#94a3b8;">
+                Te recordamos que toda comunicación y datos compartidos están rigurosamente amparados por el deber de secreto profesional y la más estricta confidencialidad.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Atención Directa -->
+          <tr>
+            <td style="padding:0 32px 28px 32px;">
+              <div style="background-color:#0d121f;border:1px solid #233047;border-left:3px solid #2d7dd2;border-radius:6px;padding:16px;">
+                <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Canal de atención directa</div>
+                <p style="margin:0;font-size:13px;line-height:1.6;color:#cbd5e1;">
+                  Si tu situación requiere orientación inmediata, puedes comunicarte directamente al teléfono <a href="tel:+593963809259" style="color:#60a5fa;text-decoration:none;font-weight:600;">+593 96 380 9259</a> o escribirnos vía <a href="https://wa.me/593963809259" style="color:#60a5fa;text-decoration:none;font-weight:600;">WhatsApp</a>.
+                </p>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:18px 32px;border-top:1px solid #1f2a3d;background-color:#0d111c;text-align:center;">
+              <p style="margin:0 0 4px 0;font-size:11px;color:#64748b;">
+                INVESTIGA24 &middot; Despacho de Investigación Privada y Seguridad
+              </p>
+              <p style="margin:0;font-size:11px;color:#475569;">
+                <a href="https://investiga24.com" style="color:#64748b;text-decoration:none;">investiga24.com</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
 HTML;
 
 // ── Enviar ambos emails vía Resend ───────────────────────────────────────────
@@ -161,10 +269,10 @@ function send_resend(string $to, string $subject, string $html, string $reply_to
     return $code === 200 || $code === 201;
 }
 
-// 1. Notificación al equipo
+// 1. Notificación al equipo (Asunto sobrio sin emojis)
 $ok1 = send_resend(
     NOTIFY_EMAIL,
-    "📋 Nueva consulta: $tipo_label — $nombre",
+    "INVESTIGA24 | Nueva Consulta: $tipo_label - $nombre",
     $html_notif,
     $reply_to
 );
@@ -174,7 +282,7 @@ $ok2 = true;
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $ok2 = send_resend(
         $email,
-        'Hemos recibido tu consulta — INVESTIGA24',
+        'INVESTIGA24 | Hemos recibido tu consulta confidencial',
         $html_confirm,
         FROM_EMAIL
     );
@@ -186,3 +294,4 @@ if ($ok1) {
     http_response_code(500);
     echo json_encode(['success' => false, 'error' => 'Error al enviar. Por favor contacta por WhatsApp.']);
 }
+
