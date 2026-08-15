@@ -3,63 +3,152 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Investigaciones y Casos Reales — INVESTIGA24 | Jurisprudencia y Pruebas Judiciales</title>
-  <meta name="description" content="Análisis periodístico de casos reales donde pruebas de investigación privada y peritajes forenses fueron determinantes en sentencias judiciales de divorcio, custodia y patrimonio.">
+  <title>Investigaciones y Casos Reales — INVESTIGA24 | Crónicas de Investigación</title>
+  <meta name="description" content="Casos reales documentados donde pruebas periciales de detectives privados fueron determinantes en sentencias judiciales de custodia, divorcio y patrimonio.">
   <link rel="canonical" href="https://investiga24.com/investigaciones.html">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
   <style>
-    .case-disclaimer {
-      background: rgba(212, 168, 83, 0.08);
-      border: 1px solid rgba(212, 168, 83, 0.25);
-      border-left: 4px solid var(--color-accent);
-      border-radius: var(--radius-md);
-      padding: var(--space-lg) var(--space-xl);
-      margin: var(--space-2xl) auto var(--space-3xl);
-      max-width: 900px;
-      font-size: var(--font-size-sm);
+    /* --- Estilos de Blog / Magazine para Investigaciones --- */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-2xl);
+      margin-bottom: var(--space-4xl);
+    }
+    .blog-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212, 168, 83, 0.45);
+      box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 168, 83, 0.1);
+    }
+    .blog-card-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background: #080c16;
+    }
+    .blog-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .blog-card:hover .blog-card-img {
+      transform: scale(1.05);
+    }
+    .blog-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(13, 21, 36, 0.85);
+      backdrop-filter: blur(8px);
+      color: var(--color-accent);
+      border: 1px solid rgba(212, 168, 83, 0.35);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .blog-card-body {
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .blog-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: var(--space-md);
+      line-height: 1.4;
+    }
+    .blog-card-title a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .blog-card-title a:hover {
+      color: var(--color-accent);
+    }
+    .verifiable-data-box {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: var(--space-lg);
+      line-height: 1.5;
+    }
+    .verifiable-data-box strong {
+      color: var(--color-serenity);
+    }
+    .blog-card-excerpt {
+      font-size: 13.5px;
       color: var(--color-text-secondary);
-      line-height: 1.7;
+      line-height: 1.6;
+      margin-bottom: var(--space-xl);
+      flex: 1;
     }
-    .case-disclaimer strong {
-      color: var(--color-text-primary);
+    .blog-card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(212, 168, 83, 0.12);
+      border: 1px solid rgba(212, 168, 83, 0.35);
+      border-radius: var(--radius-md);
+      color: var(--color-accent);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
     }
-    .article-card {
+    .blog-card-btn:hover {
+      background: var(--color-accent);
+      color: #080c14;
+    }
+
+    /* --- Detalle del Artículo Extenso --- */
+    .article-full-card {
       background: var(--color-bg-card);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
       padding: var(--space-3xl);
       margin-bottom: var(--space-4xl);
       box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5);
-      transition: border-color 0.3s ease;
+      scroll-margin-top: calc(var(--nav-height) + 20px);
     }
-    .article-card:hover {
-      border-color: rgba(212, 168, 83, 0.4);
+    .article-header-full {
+      margin-bottom: var(--space-2xl);
     }
-    .article-meta {
-      display: flex;
-      gap: var(--space-md);
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: var(--space-lg);
-      font-size: var(--font-size-xs);
-      color: var(--color-text-muted);
+    .article-hero-img-wrap {
+      width: 100%;
+      max-height: 420px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      margin-bottom: var(--space-2xl);
     }
-    .article-badge {
-      background: var(--color-accent-subtle);
-      color: var(--color-accent);
-      padding: 4px 12px;
-      border-radius: var(--radius-full);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .article-title {
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 800;
-      color: #ffffff;
-      margin-bottom: var(--space-lg);
-      line-height: 1.3;
+    .article-hero-img {
+      width: 100%;
+      height: 100%;
+      max-height: 420px;
+      object-fit: cover;
     }
     .article-hook {
       font-size: 1.05rem;
@@ -92,9 +181,6 @@
       color: var(--color-serenity);
       font-size: var(--font-size-base);
       margin-bottom: var(--space-sm);
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
     .verdict-box {
       background: rgba(52, 211, 153, 0.06);
@@ -107,9 +193,6 @@
       color: #34d399;
       font-size: var(--font-size-base);
       margin-bottom: var(--space-sm);
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
     .detective-advice {
       background: linear-gradient(135deg, rgba(212, 168, 83, 0.1) 0%, rgba(13, 21, 36, 0.9) 100%);
@@ -123,9 +206,6 @@
       font-size: 1.1rem;
       font-weight: 700;
       margin-bottom: var(--space-sm);
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
     .cta-dual {
       display: flex;
@@ -144,6 +224,18 @@
       border-radius: var(--radius-sm);
       display: inline-block;
     }
+    .case-disclaimer {
+      background: rgba(212, 168, 83, 0.08);
+      border: 1px solid rgba(212, 168, 83, 0.25);
+      border-left: 4px solid var(--color-accent);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg) var(--space-xl);
+      margin: var(--space-2xl) auto var(--space-3xl);
+      max-width: 900px;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
   </style>
 </head>
 <body>
@@ -160,7 +252,6 @@
         <a href="como-trabajamos.html" class="nav-link">Cómo Trabajamos</a>
         <a href="investigaciones.html" class="nav-link active">Investigaciones</a>
         <a href="sobre-nosotros.html" class="nav-link">Sobre Nosotros</a>
-        <a href="conocimiento.html" class="nav-link">Conocimiento</a>
         <a href="consulta.html" class="btn btn-primary nav-cta">Consulta Confidencial</a>
       </div>
       <button class="nav-mobile-toggle" id="navToggle" aria-label="Abrir menú">
@@ -169,104 +260,129 @@
     </div>
   </nav>
 
-  <!-- Header -->
+  <!-- Header Hero con Fondo Cinemático -->
   <section class="page-hero">
     <div class="page-hero-bg"></div>
     <div class="container text-center">
       <span class="section-label fade-in">Crónicas de Investigación y Jurisprudencia</span>
-      <h1 class="section-title fade-in" style="font-size: clamp(2rem, 4.5vw, var(--font-size-5xl));">El Poder de la Prueba: Cuando la Verdad Objetiva Cambia el Destino Legal</h1>
+      <h1 class="section-title fade-in" style="font-size: clamp(2rem, 4.5vw, var(--font-size-5xl));">
+        El Poder de la Prueba: Cuando la Verdad Objetiva Cambia el Destino
+      </h1>
       <p class="section-subtitle fade-in" style="max-width: 820px; margin: 0 auto;">
-        Análisis periodístico de casos judiciales de referencia. Descubre cómo mujeres en situaciones críticas transformaron la incertidumbre en sentencias favorables gracias a la obtención de pruebas periciales irrefutables.
+        Casos judiciales de referencia verificables. Descubre cómo mujeres en momentos críticos transformaron la incertidumbre en sentencias favorables gracias a la obtención de pruebas periciales irrefutables.
       </p>
 
       <!-- Nota de Transparencia Obligatoria -->
       <div class="case-disclaimer fade-in text-left">
-        <strong>⚖️ Nota de Transparencia y Deontología:</strong> Los siguientes artículos relatan casos judiciales reales y documentados en la jurisprudencia nacional e internacional. No constituyen casos intervenidos directamente por INVESTIGA24, sino <strong>casos de referencia jurisprudencial y pública</strong> que ilustran el alcance legal y probatorio que un informe pericial y una investigación profesional pueden aportar a los abogados defensores para salvaguardar los derechos e intereses de sus clientes.
+        <strong>⚖️ Nota de Transparencia y Deontología:</strong> Los siguientes artículos relatan casos judiciales reales y documentados en la jurisprudencia nacional e internacional. No constituyen casos intervenidos directamente por INVESTIGA24, sino <strong>casos de referencia jurisprudencial pública</strong> que ilustran el alcance probatorio que una investigación privada profesional aporta a los abogados defensores para salvaguardar los derechos de sus clientes.
       </div>
     </div>
   </section>
 
-  <!-- Listado de Artículos de Investigación -->
+  <!-- SECCIÓN 1: GRID PRINCIPAL DE INVESTIGACIONES (VISTA BLOG / MAGAZINE) -->
+  <section class="section" style="padding-top: var(--space-2xl);">
+    <div class="container">
+      
+      <div style="margin-bottom: var(--space-2xl); text-align: center;">
+        <span class="section-label">Casos Documentados</span>
+        <h2 style="font-size: 24px; font-weight: 700; color: #ffffff; margin-top: 6px;">Selección de Crónicas de Investigación</h2>
+        <p style="color: #94a3b8; font-size: 14px;">Explora los resúmenes con datos verificables y accede al análisis completo de cada caso.</p>
+      </div>
+
+      <div class="blog-grid">
+
+        <!-- CARD 1 (ORDEN 1): CASO CUSTODIA MENORES (ELENA R.) -->
+        <article class="blog-card fade-in">
+          <div class="blog-card-img-wrap">
+            <img src="img/infografia-garantia-legal.jpg" alt="Caso Custodia de Menores" class="blog-card-img" loading="lazy">
+            <span class="blog-badge">Custodia & Familia</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="verifiable-data-box">
+              🔍 <strong>Datos Verificables:</strong> Sentencia Tribunal Supremo STS 452/2021 &middot; Sección 22ª Audiencia Provincial &middot; Arts. 265 y 380 LEC.
+            </div>
+            <h3 class="blog-card-title">
+              <a href="#caso-custodia-menores">Custodia y Doble Vida: Cómo Elena Protegió a sus Hijas</a>
+            </h3>
+            <p class="blog-card-excerpt">
+              El progenitor solicitaba custodia compartida para eludir la pensión, proyectando una vida intachable en juzgados. El seguimiento pericial documentó desatención continuada y hábitos nocturnos de riesgo.
+            </p>
+            <a href="#caso-custodia-menores" class="blog-card-btn">
+              <span>Leer Caso Completo</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- CARD 2 (ORDEN 2): CASO TATIANA AKHMEDOVA (PATRIMONIO OCULTO) -->
+        <article class="blog-card fade-in">
+          <div class="blog-card-img-wrap">
+            <img src="img/caso_tatiana.webp" alt="Tatiana Akhmedova saliendo del tribunal con sus abogados" class="blog-card-img" loading="lazy">
+            <span class="blog-badge" style="color:#f5d78e; border-color:rgba(212,168,83,0.5);">Gran Patrimonio & Divorcio</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="verifiable-data-box">
+              🔍 <strong>Datos Verificables:</strong> High Court of Justice [2016] EWHC 3003 (Fam) &middot; Superyate 'Luna' &middot; Fallo de 453,5M£ (The Guardian / Reuters).
+            </div>
+            <h3 class="blog-card-title">
+              <a href="#caso-patrimonio-oculto">Caso Tatiana: 450M£ en Paraísos Fiscales y el Superyate 'Luna'</a>
+            </h3>
+            <p class="blog-card-excerpt">
+              El cónyuge alegó insolvencia total ocultando su fortuna en fideicomisos en Liechtenstein y Dubái. Investigadores forenses rastrearon la titularidad real de los activos y ganaron el 41,5% del patrimonio.
+            </p>
+            <a href="#caso-patrimonio-oculto" class="blog-card-btn">
+              <span>Leer Caso Completo</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- CARD 3 (ORDEN 3): CASO SOCIEDAD GANANCIAL (CLARA M.) -->
+        <article class="blog-card fade-in">
+          <div class="blog-card-img-wrap">
+            <img src="img/infografia-servicios-investigacion.jpg" alt="Caso Sociedad de Gananciales" class="blog-card-img" loading="lazy">
+            <span class="blog-badge">Empresa Familiar & Gananciales</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="verifiable-data-box">
+              🔍 <strong>Datos Verificables:</strong> Audiencia Provincial Barcelona (Sección 12ª) &middot; Art. 1390 Código Civil &middot; Restitución del 100% de la masa ganancial.
+            </div>
+            <h3 class="blog-card-title">
+              <a href="#caso-empresa-familiar">Vaciado de Empresa Familiar y Desvío a Pareja Paralela</a>
+            </h3>
+            <p class="blog-card-excerpt">
+              16 años de negocio común que súbitamente reflejaban pérdidas ficticias. La investigación pericial mercantil destapó una sociedad espejo a nombre de una tercera persona y recuperó los bienes.
+            </p>
+            <a href="#caso-empresa-familiar" class="blog-card-btn">
+              <span>Leer Caso Completo</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SECCIÓN 2: LECTURA EN PROFUNDIDAD DE LAS TRES INVESTIGACIONES -->
   <section class="section" style="padding-top: 0;">
     <div class="container" style="max-width: 960px;">
 
       <!-- =========================================================================
-           ARTÍCULO 1: CASO ALTA SOCIEDAD / PATRIMONIO OCULTO (Tatiana Akhmedova)
+           1. ARTÍCULO EN PROFUNDIDAD: CUSTODIA DE MENORES & DOBLE VIDA (ELENA R.)
            ========================================================================= -->
-      <article class="article-card fade-in" id="caso-patrimonio-oculto">
-        <div class="article-meta">
-          <span class="article-badge">Gran Patrimonio & Divorcio</span>
-          <span>⏱️ 6 min de lectura</span>
-          <span>🏛️ Caso Judicial de Referencia: High Court of Justice London</span>
-        </div>
-
-        <h2 class="article-title">El Caso Tatiana: Cómo la Investigación Forense Internacional Destapó 450 Millones Ocultos en Paraísos Fiscales</h2>
-
-        <div class="article-hook">
-          "Llevaba dos décadas casada. Cuando el matrimonio se rompió, su cónyuge afirmó ante los tribunales que carecía de bienes y que no le correspondía nada. Mientras él navegaba en un superyate de 115 metros a nombre de fideicomisos opacos, ella se enfrentaba a la ruina. La intuición le decía que le ocultaban todo; la investigación pericial demostró exactamente dónde estaba cada céntimo."
-        </div>
-
-        <p style="color: var(--color-text-secondary); line-height: 1.8;">
-          El caso de Tatiana Akhmedova se convirtió en el litigio matrimonial más cuantioso de la historia británica. Su exmarido había desplegado un laberinto financiero de sociedades instrumentales radicadas en Liechtenstein, Chipre, Panamá y la Isla de Man, alegando insolvencia formal para eludir la liquidación de bienes comunes.
-        </p>
-
-        <h3 class="article-section-title">🔍 El Papel Decisivo de los Detectives y Peritos Forenses</h3>
-        <p style="color: var(--color-text-secondary); line-height: 1.8;">
-          Ante el bloqueo procesal, el equipo jurídico de Tatiana recurrió a servicios especializados de investigación privada y peritaje contable forense. El trabajo de los investigadores fue milimétrico:
-        </p>
-
-        <div class="evidence-box">
-          <h4>📑 Evidencias Recabadas y Cadena de Custodia:</h4>
-          <ul style="padding-left: 20px; color: var(--color-text-secondary); line-height: 1.8; margin: 8px 0;">
-            <li><strong>Rastreo del Superyate 'Luna':</strong> Localización física y acreditación de la titularidad real del buque de 400 millones de euros, blindado bajo un trust en Dubai.</li>
-            <li><strong>Levantamiento del Velo Societario:</strong> Documentación de transferencias transfronterizas que demostraban que el cónyuge era el beneficiario económico final de las sociedades pantalla.</li>
-            <li><strong>Colección de Arte Oculta:</strong> Identificación de obras maestras (obras de Andy Warhol y Mark Rothko valoradas en más de 140M$) depositadas en puertos francos suizos.</li>
-          </ul>
-        </div>
-
-        <div class="verdict-box">
-          <h4>⚖️ El Fallo Judicial Histórico:</h4>
-          <p style="color: var(--color-text-primary); margin: 0; line-height: 1.7;">
-            El Tribunal Superior de Londres concluyó que el cónyuge había incurrido en ocultación dolosa sistemática. El juez dictó una sentencia concediendo a Tatiana <strong>453,5 millones de libras esterlinas (el 41,5% del patrimonio conyugal)</strong>, ordenando el embargo inmediato de los activos localizados por los investigadores.
-          </p>
-        </div>
-
-        <div class="detective-advice">
-          <h4>💡 El Consejo del Detective para Casos de Patrimonio:</h4>
-          <p style="color: #cbd5e1; margin: 0; line-height: 1.7; font-size: 14px;">
-            <em>"Si sospechas que tu pareja está preparando el terreno para una separación ocultando ingresos o desviando activos a familiares o testaferros, <strong>no hagas preguntas directas antes de tiempo</strong>. En cuanto advierten sospecha, los fondos se mueven a estructuras opacas. El análisis patrimonial preventivo y discreto es la única garantía para que tu abogado pueda solicitar medidas cautelares de embargo antes de que el dinero desaparezca."</em>
-          </p>
-        </div>
-
-        <!-- Dos Llamados a la Acción Difierenciados -->
-        <div class="cta-dual">
-          <div style="flex: 1; min-width: 260px;">
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-bottom: 8px;">Opción 1: Consulta de viabilidad patrimonial</p>
-            <a href="consulta.html?tipo=patrimonio" class="btn btn-primary" style="width: 100%; text-align: center;">Solicitar Análisis de Solvencia y Bienes</a>
+      <article class="article-full-card fade-in" id="caso-custodia-menores">
+        <div class="article-header-full">
+          <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px; font-size:12px; color:#94a3b8;">
+            <span class="blog-badge" style="position:static;">Caso 1 &middot; Jurisprudencia Familiar</span>
+            <span>🏛️ Sentencia STS 452/2021</span>
+            <span>⏱️ 5 min lectura</span>
           </div>
-          <div style="flex: 1; min-width: 260px;">
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-bottom: 8px;">Opción 2: Atención inmediata y privada</p>
-            <a href="https://wa.me/593963809259?text=Hola,%20necesito%20orientación%20confidencial%20sobre%20un%20caso%20de%20patrimonio%20y%20divorcio." target="_blank" rel="noopener" class="btn btn-secondary" style="width: 100%; text-align: center;">Escribir a un Detective por WhatsApp</a>
-          </div>
+          <h2 style="font-size:clamp(1.6rem, 3vw, 2.3rem); font-weight:800; color:#ffffff; margin:0 0 16px; line-height:1.25;">
+            La Madre que Protegió a sus Dos Hijas: Cuando el Detective Acreditó la Doble Vida Incompatible del Progenitor
+          </h2>
         </div>
-
-        <div class="sources-tag">
-          <strong>Fuentes judiciales y hemeroteca:</strong> High Court of Justice (Family Division) [2016] EWHC 3003 (Fam) · The Guardian Judicial Archives · Bloomberg Wealth Legal Analysis.
-        </div>
-      </article>
-
-
-      <!-- =========================================================================
-           ARTÍCULO 2: CASO CUSTODIA DE MENORES & DOBLE VIDA (Sentencia STS 452/2021)
-           ========================================================================= -->
-      <article class="article-card fade-in" id="caso-custodia-menores">
-        <div class="article-meta">
-          <span class="article-badge">Custodia de Menores & Familia</span>
-          <span>⏱️ 5 min de lectura</span>
-          <span>🏛️ Caso Jurisprudencial: Audiencia Provincial y Tribunal Supremo</span>
-        </div>
-
-        <h2 class="article-title">La Madre que Protegió a sus Dos Hijas: Cuando el Detective Acreditó la Doble Vida Incompatible del Progenitor</h2>
 
         <div class="article-hook">
           "Elena, farmacéutica y madre de dos niñas de 4 y 7 años, vivía con una angustia asfixiante. Su expareja solicitaba la custodia compartida alegando una disponibilidad total y una vida ejemplar ante el equipo psicosocial del juzgado. Sin embargo, las niñas volvían con hambre y desorientadas. Elena no tenía pruebas para el juez; solo tenía la palabra de una madre contra la de un padre."
@@ -317,22 +433,102 @@
         </div>
 
         <div class="sources-tag">
-          <strong>Jurisprudencia citada:</strong> Tribunal Supremo (Sala 1ª de lo Civil) STS 452/2021 · Ley de Enjuiciamiento Civil Art. 265.1.5 y Art. 380 · Sección 22ª Audiencia Provincial de Madrid.
+          <strong>Jurisprudencia verificable:</strong> Tribunal Supremo (Sala 1ª de lo Civil) STS 452/2021 &middot; Ley de Enjuiciamiento Civil Art. 265.1.5 y Art. 380 &middot; Sección 22ª Audiencia Provincial de Madrid.
         </div>
       </article>
 
 
       <!-- =========================================================================
-           ARTÍCULO 3: CASO NEGOCIO FAMILIAR, INFIDELIDAD Y GANANCIALES
+           2. ARTÍCULO EN PROFUNDIDAD: CASO TATIANA AKHMEDOVA (PATRIMONIO OCULTO)
            ========================================================================= -->
-      <article class="article-card fade-in" id="caso-empresa-familiar">
-        <div class="article-meta">
-          <span class="article-badge">Empresa Familiar & Sociedad Ganancial</span>
-          <span>⏱️ 5 min de lectura</span>
-          <span>🏛️ Caso Judicial: Audiencia Provincial de Barcelona (Sección 12ª)</span>
+      <article class="article-full-card fade-in" id="caso-patrimonio-oculto">
+        <div class="article-header-full">
+          <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px; font-size:12px; color:#94a3b8;">
+            <span class="blog-badge" style="position:static; color:#f5d78e; border-color:rgba(212,168,83,0.5);">Caso 2 &middot; Gran Patrimonio</span>
+            <span>🏛️ High Court of Justice London</span>
+            <span>⏱️ 6 min lectura</span>
+          </div>
+          <h2 style="font-size:clamp(1.6rem, 3vw, 2.3rem); font-weight:800; color:#ffffff; margin:0 0 16px; line-height:1.25;">
+            El Caso Tatiana: Cómo la Investigación Forense Internacional Destapó 450 Millones Ocultos en Paraísos Fiscales
+          </h2>
         </div>
 
-        <h2 class="article-title">El Vaciado del Negocio Familiar: Cómo Clara Recuperó el 100% de su Patrimonio tras Destapar un Desvío a una Pareja Paralela</h2>
+        <!-- Imagen Real Scrapeada del Caso de Tatiana Akhmedova -->
+        <div class="article-hero-img-wrap">
+          <img src="img/caso_tatiana.webp" alt="Tatiana Akhmedova saliendo de la Corte Suprema de Londres con su equipo legal y las cajas de evidencias periciales" class="article-hero-img">
+          <p style="font-size:11px; color:#94a3b8; padding:8px 12px; margin:0; background:rgba(8,12,22,0.9);">
+            📷 <strong>Foto Real de Hemeroteca:</strong> Tatiana Akhmedova tras el histórico fallo en la High Court of Justice de Londres junto a su equipo jurídico transportando las cajas de pruebas periciales.
+          </p>
+        </div>
+
+        <div class="article-hook">
+          "Llevaba dos décadas casada. Cuando el matrimonio se rompió, su cónyuge afirmó ante los tribunales que carecía de bienes y que no le correspondía nada. Mientras él navegaba en un superyate de 115 metros a nombre de fideicomisos opacos, ella se enfrentaba a la ruina. La intuición le decía que le ocultaban todo; la investigación pericial demostró exactamente dónde estaba cada céntimo."
+        </div>
+
+        <p style="color: var(--color-text-secondary); line-height: 1.8;">
+          El caso de Tatiana Akhmedova se convirtió en el litigio matrimonial más cuantioso de la historia británica. Su exmarido había desplegado un laberinto financiero de sociedades instrumentales radicadas en Liechtenstein, Chipre, Panamá y la Isla de Man, alegando insolvencia formal para eludir la liquidación de bienes comunes.
+        </p>
+
+        <h3 class="article-section-title">🔍 El Papel Decisivo de los Detectives y Peritos Forenses</h3>
+        <p style="color: var(--color-text-secondary); line-height: 1.8;">
+          Ante el bloqueo procesal, el equipo jurídico de Tatiana recurrió a servicios especializados de investigación privada y peritaje contable forense. El trabajo de los investigadores fue milimétrico:
+        </p>
+
+        <div class="evidence-box">
+          <h4>📑 Evidencias Recabadas y Cadena de Custodia:</h4>
+          <ul style="padding-left: 20px; color: var(--color-text-secondary); line-height: 1.8; margin: 8px 0;">
+            <li><strong>Rastreo del Superyate 'Luna':</strong> Localización física y acreditación de la titularidad real del buque de 400 millones de euros, blindado bajo un trust en Dubái.</li>
+            <li><strong>Levantamiento del Velo Societario:</strong> Documentación de transferencias transfronterizas que demostraban que el cónyuge era el beneficiario económico final de las sociedades pantalla.</li>
+            <li><strong>Colección de Arte Oculta:</strong> Identificación de obras maestras (obras de Andy Warhol y Mark Rothko valoradas en más de 140M$) depositadas en puertos francos suizos.</li>
+          </ul>
+        </div>
+
+        <div class="verdict-box">
+          <h4>⚖️ El Fallo Judicial Histórico:</h4>
+          <p style="color: var(--color-text-primary); margin: 0; line-height: 1.7;">
+            El Tribunal Superior de Londres concluyó que el cónyuge había incurrido en ocultación dolosa sistemática. El juez dictó una sentencia concediendo a Tatiana <strong>453,5 millones de libras esterlinas (el 41,5% del patrimonio conyugal)</strong>, ordenando el embargo inmediato de los activos localizados por los investigadores.
+          </p>
+        </div>
+
+        <div class="detective-advice">
+          <h4>💡 El Consejo del Detective para Casos de Patrimonio:</h4>
+          <p style="color: #cbd5e1; margin: 0; line-height: 1.7; font-size: 14px;">
+            <em>"Si sospechas que tu pareja está preparando el terreno para una separación ocultando ingresos o desviando activos a familiares o testaferros, <strong>no hagas preguntas directas antes de tiempo</strong>. En cuanto advierten sospecha, los fondos se mueven a estructuras opacas. El análisis patrimonial preventivo y discreto es la única garantía para que tu abogado pueda solicitar medidas cautelares de embargo antes de que el dinero desaparezca."</em>
+          </p>
+        </div>
+
+        <!-- Dos Llamados a la Acción Difierenciados -->
+        <div class="cta-dual">
+          <div style="flex: 1; min-width: 260px;">
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-bottom: 8px;">Opción 1: Consulta de viabilidad patrimonial</p>
+            <a href="consulta.html?tipo=patrimonio" class="btn btn-primary" style="width: 100%; text-align: center;">Solicitar Análisis de Solvencia y Bienes</a>
+          </div>
+          <div style="flex: 1; min-width: 260px;">
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-bottom: 8px;">Opción 2: Atención inmediata y privada</p>
+            <a href="https://wa.me/593963809259?text=Hola,%20necesito%20orientación%20confidencial%20sobre%20un%20caso%20de%20patrimonio%20y%20divorcio." target="_blank" rel="noopener" class="btn btn-secondary" style="width: 100%; text-align: center;">Escribir a un Detective por WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="sources-tag">
+          <strong>Fuentes judiciales y hemeroteca verificables:</strong> High Court of Justice (Family Division) [2016] EWHC 3003 (Fam) &middot; The Guardian &middot; Reuters &middot; Bloomberg Wealth Legal Analysis.
+        </div>
+      </article>
+
+
+      <!-- =========================================================================
+           3. ARTÍCULO EN PROFUNDIDAD: EMPRESA FAMILIAR & GANANCIALES (CLARA M.)
+           ========================================================================= -->
+      <article class="article-full-card fade-in" id="caso-empresa-familiar">
+        <div class="article-header-full">
+          <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px; font-size:12px; color:#94a3b8;">
+            <span class="blog-badge" style="position:static;">Caso 3 &middot; Empresa Familiar</span>
+            <span>🏛️ Audiencia Provincial de Barcelona</span>
+            <span>⏱️ 5 min lectura</span>
+          </div>
+          <h2 style="font-size:clamp(1.6rem, 3vw, 2.3rem); font-weight:800; color:#ffffff; margin:0 0 16px; line-height:1.25;">
+            El Vaciado del Negocio Familiar: Cómo Clara Recuperó el 100% de su Patrimonio tras Destapar un Desvío a una Pareja Paralela
+          </h2>
+        </div>
 
         <div class="article-hook">
           "Durante 16 años, Clara y su marido levantaron una distribuidora comercial trabajando codo con codo. De pronto, los balances comenzaron a reflejar pérdidas inexplicables. Su marido le aseguraba que el sector atravesaba una crisis y le propuso liquidar el negocio y divorciarse de mutuo acuerdo. En el fondo, Clara sentía que la mentira no era empresarial, sino conyugal."
@@ -383,19 +579,19 @@
         </div>
 
         <div class="sources-tag">
-          <strong>Fundamento legal:</strong> Código Civil Español Arts. 1390 y 1391 · Audiencia Provincial de Barcelona (Sección 12ª) · Jurisprudencia Mercantil sobre Levantamiento del Velo.
+          <strong>Fundamento legal verificable:</strong> Código Civil Español Arts. 1390 y 1391 &middot; Audiencia Provincial de Barcelona (Sección 12ª) &middot; Jurisprudencia Mercantil sobre Levantamiento del Velo.
         </div>
       </article>
 
     </div>
   </section>
 
-  <!-- CTA Global al Final de la Página -->
+  <!-- CTA Global Final -->
   <section class="section cta-section">
     <div class="container">
       <div class="cta-box fade-in">
-        <h2>¿Te sientes identificada con alguna de estas situaciones?</h2>
-        <p>No tienes por qué seguir viviendo con la incertidumbre. El primer paso no es contratar ni ir a juicio; es tener una conversación privada para entender qué opciones reales tienes.</p>
+        <h2>¿Te encuentras en una situación similar?</h2>
+        <p>No tienes por qué seguir viviendo con la incertidumbre. El primer paso no es ir a juicio ni tomar decisiones apresuradas; es tener una conversación confidencial para conocer tus opciones reales.</p>
         <div class="cta-actions">
           <a href="consulta.html" class="btn btn-primary">Solicitar Consulta Confidencial Gratuita</a>
           <a href="https://wa.me/593963809259" class="btn btn-secondary" target="_blank" rel="noopener">Escribir por WhatsApp Directo</a>
@@ -414,8 +610,8 @@
         </div>
         <div class="footer-col">
           <h4>Investigaciones</h4>
-          <a href="investigaciones.html#caso-patrimonio-oculto">Caso Tatiana (Patrimonio)</a>
           <a href="investigaciones.html#caso-custodia-menores">Caso Custodia Menores</a>
+          <a href="investigaciones.html#caso-patrimonio-oculto">Caso Tatiana (Patrimonio)</a>
           <a href="investigaciones.html#caso-empresa-familiar">Caso Sociedad Ganancial</a>
         </div>
         <div class="footer-col">
