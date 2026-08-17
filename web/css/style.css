@@ -1376,9 +1376,238 @@ button {
     gap: var(--space-md);
     text-align: center;
   }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
   .cta-contact-info {
     flex-direction: column;
     gap: var(--space-md);
+  }
+}
+
+/* ==========================================================================
+   Floating WhatsApp Custom Widget
+   ========================================================================== */
+.wa-float-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  font-family: inherit;
+}
+
+.wa-float-btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.wa-float-tooltip {
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  margin-right: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: waFloatPulse 2.5s infinite;
+  user-select: none;
+}
+
+@keyframes waFloatPulse {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+}
+
+.wa-float-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25D366;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wa-float-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.65);
+}
+
+.wa-icon-open,
+.wa-icon-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.wa-icon-close {
+  display: none;
+}
+
+.wa-float-container.active .wa-icon-open {
+  display: none;
+}
+
+.wa-float-container.active .wa-icon-close {
+  display: flex;
+  animation: waRotateIn 0.3s ease;
+}
+
+@keyframes waRotateIn {
+  from { transform: rotate(-90deg) scale(0.5); opacity: 0; }
+  to { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+/* Popup Card */
+.wa-popup-card {
+  position: absolute;
+  bottom: 74px;
+  right: 0;
+  width: 330px;
+  max-width: calc(100vw - 32px);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wa-float-container.active .wa-popup-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.wa-popup-header {
+  background: linear-gradient(135deg, #128c7e 0%, #25d366 100%);
+  padding: 16px 18px;
+  color: #ffffff;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.wa-header-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.wa-header-text {
+  flex: 1;
+}
+
+.wa-header-title {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.wa-header-sub {
+  margin: 0;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.4;
+}
+
+.wa-popup-body {
+  padding: 16px;
+  background: #ffffff;
+}
+
+.wa-reply-time {
+  font-size: 11px;
+  color: #64748b;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.wa-agent-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #22c55e;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.wa-agent-card:hover {
+  background: #f0fdf4;
+  border-color: #86efac;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.18);
+}
+
+.wa-agent-avatar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wa-agent-info {
+  flex: 1;
+  text-align: left;
+}
+
+.wa-agent-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.wa-agent-role {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.wa-agent-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .wa-float-container {
+    bottom: 18px;
+    right: 18px;
+  }
+  .wa-popup-card {
+    width: 295px;
+    bottom: 70px;
+  }
+  .wa-float-tooltip {
+    display: none;
   }
 }
 
