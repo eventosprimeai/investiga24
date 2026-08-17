@@ -700,7 +700,7 @@ button {
   line-height: 1.6;
 }
 
-/* --- Services Preview --- */
+/* --- Services Preview with Visuals --- */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -708,26 +708,83 @@ button {
   margin-top: var(--space-3xl);
 }
 
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .service-card {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(45, 125, 210, 0.4);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(45, 125, 210, 0.1);
+}
+
+.service-card-media {
+  width: 100%;
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+  background: #0d1322;
+}
+
+.service-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-card-media img {
+  transform: scale(1.05);
+}
+
+.service-card-media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 18, 30, 0.1) 0%, rgba(12, 18, 30, 0.85) 100%);
+}
+
+.service-card-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(11, 15, 25, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(45, 125, 210, 0.3);
+  color: var(--color-accent);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.service-card-body {
   padding: var(--space-2xl);
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
-.service-card .service-icon {
-  width: 40px;
-  height: 40px;
-  margin-bottom: var(--space-lg);
-  color: var(--color-accent);
-}
-
-.service-card h3 {
+.service-card-body h3 {
   font-size: var(--font-size-xl);
-  font-weight: 600;
-  margin-bottom: var(--space-md);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  color: #ffffff;
 }
 
-.service-card p {
+.service-card-body p {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   line-height: 1.7;
@@ -747,6 +804,125 @@ button {
 
 .service-card:hover .service-link {
   gap: var(--space-md);
+}
+
+/* --- Cobertura Nacional e Internacional --- */
+.coverage-box {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(11, 15, 25, 0.95) 100%);
+  border: 1px solid rgba(45, 125, 210, 0.25);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3xl);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  margin: var(--space-4xl) 0;
+}
+
+.coverage-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(45, 125, 210, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.coverage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  margin-top: var(--space-2xl);
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .coverage-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.coverage-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.coverage-item h4 {
+  color: #38bdf8;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.coverage-item p {
+  color: var(--color-text-secondary);
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --- Métodos de Pago --- */
+.payment-section {
+  padding: var(--space-3xl) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(6, 9, 15, 0.6);
+}
+
+.payment-title {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-xl);
+}
+
+.payment-badges-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.pay-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(18, 26, 44, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  color: #f1f5f9;
+  transition: all 0.2s ease;
+}
+
+.pay-badge:hover {
+  border-color: var(--color-accent);
+  background: rgba(45, 125, 210, 0.12);
+  transform: translateY(-2px);
+}
+
+.pay-badge .pay-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.pay-badge.pay-intl .pay-dot {
+  background: #34d399;
 }
 
 /* --- Manifesto Section --- */

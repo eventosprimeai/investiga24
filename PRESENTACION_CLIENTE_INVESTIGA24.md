@@ -16,7 +16,7 @@ Tu plataforma web **INVESTIGA24** ha sido diseñada, programada, testeada y **pu
 ### Lo que ya está funcionando en vivo:
 1. **Web completa de 9 páginas:** Diseño exclusivo en modo oscuro corporativo (*obsidian & glassmorphism*), adaptable a móviles, tablets y ordenadores.
 2. **Formularios de captación activos:** En portada (`index.html#contacto`) y en la página dedicada de consulta (`consulta.html`), con preselección inteligente desde la sección de servicios.
-3. **Enrutamiento de alertas por correo:** Cada consulta recibida en la web genera automáticamente un **Memorándum Confidencial Ejecutivo** que llega de inmediato a tu correo personal **`publicidad553@gmail.com`**, con enlaces directos para responder con un solo clic a WhatsApp o email.
+3. **Enrutamiento de alertas por correo:** Cada consulta recibida en la web genera automáticamente un **Memorándum Confidencial Ejecutivo** que llega de inmediato a tu correo oficial **`investiga24siempre@gmail.com`**, con enlaces directos para responder con un solo clic a WhatsApp o email.
 4. **Acuse de recibo institucional:** El cliente recibe en segundos un correo formal y tranquilizador desde **`consulta@investiga24.com`** confirmándole que su caso está bajo estudio y amparado por el secreto profesional.
 5. **Blindaje legal RGPD y Seguridad Privada:** Páginas de Aviso Legal, Política de Privacidad y Cookies con redacción jurídica profesional.
 6. **Línea telefónica y WhatsApp oficial sincronizados:** `+593 96 380 9259` configurado en todos los botones y llamadas a la acción.
@@ -156,7 +156,7 @@ Los abogados de familia y laboralistas necesitan detectives de confianza para ga
 | Elemento | Detalle |
 | :--- | :--- |
 | **Dominio Web:** | `https://investiga24.com` |
-| **Buzón Receptor de Leads:** | `publicidad553@gmail.com` |
+| **Buzón Receptor de Leads:** | `investiga24siempre@gmail.com` |
 | **Buzón Remitente Oficial:** | `consulta@investiga24.com` (Verificado con SPF/DKIM/DMARC) |
 | **Teléfono y WhatsApp:** | `+593 96 380 9259` (Visual: `096 380 9259`) |
 | **Motor de Envío:** | Resend API REST |

@@ -102,7 +102,7 @@ $urgencia_label = $urgencia_map[$urgencia] ?? $urgencia;
 $fecha       = date('d/m/Y H:i', time() - 5 * 3600); // UTC-5 (Ecuador)
 $clean_phone = preg_replace('/[^0-9+]/', '', $telefono);
 $wa_phone    = preg_replace('/[^0-9]/', '', $telefono);
-$wa_link     = !empty($wa_phone) ? "https://wa.me/{$wa_phone}" : "https://wa.me/593963809259";
+$wa_link     = !empty($wa_phone) ? "https://wa.me/{$wa_phone}" : "https://wa.me/593992124169";
 $reply_to    = $email ?: FROM_EMAIL;
 
 // ── Email de Notificación para INVESTIGA24 (Llega a NOTIFY_EMAIL) ───────────
@@ -267,7 +267,7 @@ $html_confirm = <<<HTML
               <div style="background-color:#0d121f;border:1px solid #233047;border-left:3px solid #2d7dd2;border-radius:6px;padding:16px;">
                 <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Canal de atención directa</div>
                 <p style="margin:0;font-size:13px;line-height:1.6;color:#cbd5e1;">
-                  Si tu situación requiere orientación inmediata, puedes comunicarte directamente al teléfono <a href="tel:+593963809259" style="color:#60a5fa;text-decoration:none;font-weight:600;">+593 96 380 9259</a> o escribirnos vía <a href="https://wa.me/593963809259" style="color:#60a5fa;text-decoration:none;font-weight:600;">WhatsApp</a>.
+                  Si tu situación requiere orientación inmediata, puedes comunicarte directamente al teléfono <a href="tel:+593992124169" style="color:#60a5fa;text-decoration:none;font-weight:600;">099-212-4169</a> o escribirnos vía <a href="https://wa.me/593992124169" style="color:#60a5fa;text-decoration:none;font-weight:600;">WhatsApp</a>.
                 </p>
               </div>
             </td>
