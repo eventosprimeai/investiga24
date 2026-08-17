@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </svg>
           </div>
           <div class="wa-header-text">
-            <h4 class="wa-header-title">Start a Conversation</h4>
+            <h4 class="wa-header-title">Inicia una conversación</h4>
             <p class="wa-header-sub">Hola, selecciona al agente para iniciar una conversación en WhatsApp</p>
           </div>
         </div>
